@@ -1,0 +1,17 @@
+Tiled:
+    1. Create a new tileset:
+        - Import the sprite sheet and give the new tileset file a name
+        - Leave transparency off for now
+        - Input the correct tile pixel dimensions
+    2. New Map:
+        - Set the map dimensions
+        - Input the correct tile Size
+    3. Game Map Editing:
+        - Use layers to separate background, foreground, objects
+        - Select the tiles for Use
+            - Selecting multiple tiles will draw them in the selected pattern
+        - Fill (F) to fill the entire canvas
+        - Random Mode (D) to randomized selected tileset
+        - Rectangle Select Tool (R) + DELETE to delete sections
+        - To move layers, need to select the section, and then cut and paste
+        - To try multiple randomization, select, then DELETE, then turn on fill, and pass over the section until you get the pattern you like
