@@ -3,9 +3,11 @@ Tiled:
         - Import the sprite sheet and give the new tileset file a name
         - Leave transparency off for now
         - Input the correct tile pixel dimensions
+
     2. New Map:
         - Set the map dimensions
         - Input the correct tile Size
+
     3. Game Map Editing:
         - Use layers to separate background, foreground, objects
         - Select the tiles for Use
@@ -15,3 +17,15 @@ Tiled:
         - Rectangle Select Tool (R) + DELETE to delete sections
         - To move layers, need to select the section, and then cut and paste
         - To try multiple randomization, select, then DELETE, then turn on fill, and pass over the section until you get the pattern you like
+
+    4. Collisions:
+        - Implement collision detection using collision blocks
+        - Create a new tileset using the collision block and the correct tile dimensions
+
+    5. Foreground Objects:
+        - Place copies of foregrounds objects on the topmost layer so player can walk behind them
+
+    5. Exporting:
+        - Export the collision, foreground objects, and the rest of map separately
+            - Make collision, foreground objects, etc. invisible
+        - File -> Export As Image -> Only include visible layers
