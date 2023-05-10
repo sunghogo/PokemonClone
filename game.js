@@ -2,6 +2,13 @@
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 
+// Declare html image objects
+const bgImage = new Image();
+const playerImage = new Image();
+
+// Keeps pixel art sharp
+context.imageSmoothingEnabled = false;
+
 function setCanvas() {
   // Set canvas dimensions
   canvas.width = window.innerWidth - 4;
@@ -9,23 +16,18 @@ function setCanvas() {
 }
 
 function loadImages() {
-  // Declare html image objects
-  const bgImage = new Image();
-  const playerImage = new Image();
-
-  // Keeps pixel art sharp
-  context.imageSmoothingEnabled = false;
-
   // Draw bg image
   bgImage.onload = () => {
     // Scaling constants
-    const zoom = 2.5;
-    const scaleX = canvas.width / bgImage.width;
-    const scaleY = canvas.height / bgImage.height;
+    const zoom = 4.0;
+
+    // Don't let the background scale with window otherwise cannot do absolute positioning with constantly changing proportions
+    // const scaleX = canvas.width / bgImage.width;
+    // const scaleY = canvas.height / bgImage.height;
 
     context.save();
-    context.scale(scaleX * zoom, scaleY * zoom);
-    context.drawImage(bgImage, -canvas.width / 10, -canvas.height / 8);
+    context.scale(zoom, zoom);
+    context.drawImage(bgImage, -bgImage.width / 4, -bgImage.height / 3);
     context.restore();
 
     // Load player image
@@ -34,20 +36,18 @@ function loadImages() {
 
   // Draw player image
   playerImage.onload = () => {
-    // Scaling constants
-    const zoom = 0.7;
-    const scaleX = canvas.width / bgImage.width;
-    const scaleY = canvas.height / bgImage.height;
-
     // Draw player
-    context.save();
-    context.scale(scaleX * zoom, scaleY * zoom);
     context.drawImage(
       playerImage,
-      canvas.width / 2 - playerImage.width / 2,
-      canvas.height / 2 - playerImage.height / 2
+      0,
+      0,
+      playerImage.width / 4,
+      playerImage.height,
+      bgImage.width / 2 - playerImage.width / 5.2,
+      bgImage.height / 2 - playerImage.height / 3,
+      playerImage.width / 4,
+      playerImage.height
     );
-    context.restore();
   };
 
   // Set src / Begin loading images
