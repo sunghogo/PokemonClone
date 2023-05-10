@@ -57,8 +57,8 @@ JS:
         2. window.addEventListener('resize', function () {reset canvas dimensions & reload and scale any images})
 
         3. To scale images, need to:
-            const scaleX = (canvas.width / image.width) * 4;
-            const scaleY = (canvas.height / image.height) * 4;
+            const scaleX = (canvas.width / image.width);
+            const scaleY = (canvas.height / image.height);
             c.imageSmoothingEnabled = false
             context.save();
             context.scale(scaleX, scaleY);
@@ -68,3 +68,5 @@ JS:
     Since image.onload event handler calls the callback function upon loading, smaller images will load faster and maybe be overlapped by the bigger, slower images
 
     Since the image starts loading once the .src property has been set, the .onload event handlers should be set beforehand
+
+    .drawImage('html image object', 'crop x', 'crop y', 'crop width', 'crop height', 'x', 'y', 'rendered width', 'rendered height')
