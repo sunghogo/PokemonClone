@@ -73,7 +73,7 @@ JS:
 
     .drawImage('html image object', 'crop x', 'crop y', 'crop width', 'crop height', 'x', 'y', 'rendered width', 'rendered height')
 
-    Create a game loop function that recursively calls itself using requestAnimationFrame():
+    Create a game loop function that recursively calls itself using requestAnimationFrame('callback function'):
         function gameLoop() {
-            requestAnimationFrame(gameLoop())
+            requestAnimationFrame(gameLoop)
         }
