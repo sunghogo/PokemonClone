@@ -46,13 +46,18 @@ function setCanvasColor() {
 }
 
 function centerChar() {
+  const oldPosX = player.position.x;
+  const oldPosY = player.position.y;
+
   player.position.x = canvas.width / 2 - playerImage.width / 8;
   player.position.y = canvas.height / 2 - playerImage.height / 2;
+
+  return [player.position.x - oldPosX, player.position.y - oldPosY];
 }
 
-function centerBG() {
-  background.position.x = -bgImage.width / 2.86 - (49 - player.position.x);
-  background.position.y = -bgImage.height / 2.16 - (-36 - player.position.y);
+function centerBG(offset) {
+  background.position.x += offset[0];
+  background.position.y += offset[1];
 }
 
 // Canvas selector and context
@@ -84,7 +89,7 @@ const keys = new Map([
 
 // Gameloop
 function gameLoop() {
-  const repo = 3;
+  const repo = 6;
   // Update game state
   keys.forEach((value, key, map) => {
     if (value && key === 'up') background.position.y += repo;
@@ -106,6 +111,7 @@ function gameLoop() {
 bgImage.onload = () => {
   // Initialize bg sprite
   background = new Sprite({
+    // Find fixed point in bg image, and offset it by the player's centered positions
     position: {
       x: -bgImage.width / 2.86 - (49 - player.position.x),
       y: -bgImage.height / 2.16 - (-36 - player.position.y),
@@ -148,8 +154,8 @@ window.addEventListener('resize', function () {
   setCanvasSize();
   setCanvasColor();
 
-  centerChar();
-  centerBG();
+  const offset = centerChar();
+  centerBG(offset);
 
   background.drawBG();
   player.drawChar();
