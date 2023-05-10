@@ -75,12 +75,12 @@ const keys = new Map([
 function gameLoop() {
   const repo = 3;
   // Update game state
-  // keys.forEach((value, key, map) => {
-  //   if (value && key === 'up') background.position.y -= repo;
-  //   else if (value && key === 'down') background.position.y += repo;
-  //   else if (value && key === 'left') background.position.x -= repo;
-  //   else if (value && key === 'right') background.position.x += repo;
-  // });
+  keys.forEach((value, key, map) => {
+    if (value && key === 'up') background.position.y += repo;
+    else if (value && key === 'down') background.position.y -= repo;
+    else if (value && key === 'left') background.position.x += repo;
+    else if (value && key === 'right') background.position.x -= repo;
+  });
   console.log('Tick');
 
   // Draw sprites
