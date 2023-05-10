@@ -14,14 +14,14 @@ function loadBG() {
   // Images
   const image = new Image();
   image.src = './Assets/Images/Pellet Town.png';
-  console.log(canvas.height, canvas.width);
   image.onload = () => {
-    const scaleX = (canvas.width / image.width) * 4;
-    const scaleY = (canvas.height / image.height) * 4;
-    console.log(scaleX, scaleY);
+    const zoom = 2.5;
+    const scaleX = (canvas.width / image.width) * zoom;
+    const scaleY = (canvas.height / image.height) * zoom;
+    context.imageSmoothingEnabled = false; // Keeps pixel art sharp
     context.save();
     context.scale(scaleX, scaleY);
-    context.drawImage(image, 0, 0);
+    context.drawImage(image, -200, -150);
     context.restore();
   };
 }

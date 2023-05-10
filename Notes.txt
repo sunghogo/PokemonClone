@@ -59,6 +59,7 @@ JS:
         3. To scale images, need to:
             const scaleX = (canvas.width / image.width) * 4;
             const scaleY = (canvas.height / image.height) * 4;
+            c.imageSmoothingEnabled = false
             context.save();
             context.scale(scaleX, scaleY);
             context.drawImage(image, 0, 0);
