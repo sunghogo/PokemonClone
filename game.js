@@ -1,10 +1,11 @@
 // Classes
 class Sprite {
-  constructor({ position, velocity, image, crop, zoom }) {
+  constructor({ position, velocity, image, crop, zoom, frames = { max: 1 } }) {
     this.position = position;
     this.image = image;
     this.crop = crop;
     this.zoom = zoom;
+    this.frames = frames;
   }
 
   drawBG() {
@@ -70,9 +71,9 @@ function centerChar() {
   return [player.position.x - oldPosX, player.position.y - oldPosY];
 }
 
-function centerBG(offset) {
-  background.position.x += offset[0];
-  background.position.y += offset[1];
+function centerBG(resizeOffset) {
+  background.position.x += resizeOffset[0];
+  background.position.y += resizeOffset[1];
 }
 
 // Canvas selector and context
@@ -100,6 +101,9 @@ let player;
 // Declare boundary
 const boundaries = [];
 
+// Declare moveable objects
+const movables = [];
+
 // Declare key press map
 const keys = new Map([
   ['up', false],
@@ -112,11 +116,24 @@ const keys = new Map([
 function gameLoop() {
   const repo = 6;
   // Update game state
+  // Move objects
   keys.forEach((value, key, map) => {
-    if (value && key === 'up') background.position.y += repo;
-    else if (value && key === 'down') background.position.y -= repo;
-    else if (value && key === 'left') background.position.x += repo;
-    else if (value && key === 'right') background.position.x -= repo;
+    if (value && key === 'up')
+      movables.forEach(movable => {
+        movable.position.y += repo;
+      });
+    else if (value && key === 'down')
+      movables.forEach(movable => {
+        movable.position.y -= repo;
+      });
+    else if (value && key === 'left')
+      movables.forEach(movable => {
+        movable.position.x += repo;
+      });
+    else if (value && key === 'right')
+      movables.forEach(movable => {
+        movable.position.x -= repo;
+      });
   });
   console.log('Tick');
 
@@ -163,6 +180,9 @@ bgImage.onload = () => {
     zoom: 4.0,
   });
 
+  // Set movables
+  movables.push(background, ...boundaries);
+
   // Draw bg
   background.drawBG();
   // Draw player
@@ -197,8 +217,8 @@ window.addEventListener('resize', function () {
   setCanvasSize();
   setCanvasColor();
 
-  const offset = centerChar();
-  centerBG(offset);
+  const resizeOffset = centerChar();
+  centerBG(resizeOffset);
 
   background.drawBG();
   player.drawChar();
