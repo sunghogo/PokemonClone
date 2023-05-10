@@ -49,7 +49,7 @@ JS:
 
     'context'.drawImage() needs to be passed an html image constructed from new Image(), and has its .src property set to the image path
 
-    The html image object takes time to load, so assign the 'image'.onload property to a callback function that calls 'context'.drawImage()
+    The html image object takes time to load, so assign the 'image'.onload event handler to a callback function that calls 'context'.drawImage()
 
     * To scale the canvas to the window height:
         1. set canvas.width = window.innerWidth - 4 and canvas.height = window.innerHeight - 4;
@@ -64,3 +64,7 @@ JS:
             context.scale(scaleX, scaleY);
             context.drawImage(image, 0, 0);
             context.restore();
+
+    Since image.onload event handler calls the callback function upon loading, smaller images will load faster and maybe be overlapped by the bigger, slower images
+
+    Since the image starts loading once the .src property has been set, the .onload event handlers should be set beforehand
