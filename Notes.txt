@@ -17,6 +17,7 @@ Tiled:
         - Rectangle Select Tool (R) + DELETE to delete sections
         - To move layers, need to select the section, and then cut and paste
         - To try multiple randomization, select, then DELETE, then turn on fill, and pass over the section until you get the pattern you like
+        * REMOVE / SET HORIZONATAL AND VERTICAL OFFSET IN LAYER PROPERTIES TO 0 OTHERWISE THE OFFSET WILL CARRY OVER INTO THE EXPORTED DATA
 
     4. Collisions:
         - Implement collision detection using collision blocks
@@ -29,6 +30,9 @@ Tiled:
         - Export the collision, foreground objects, and the rest of map separately
             - Make collision, foreground objects, etc. invisible
         - File -> Export As Image -> Only include visible layers & Current zoom level (to scale the image up)
+        - File -> Export As -> JSON
+            - You can't select layers for this option, and need to extract the data from each layer separately
+            * REMOVE / SET HORIZONATAL AND VERTICAL OFFSET IN EACH LAYERS TO 0 OTHERWISE THE OFFSET WILL CARRY OVER INTO THE EXPORTED DATA
 
 HTML:
     - Set up canvas element
