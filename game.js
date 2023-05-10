@@ -45,6 +45,10 @@ function setCanvasColor() {
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
 
+// Initialization
+setCanvasSize();
+setCanvasColor();
+
 // Keeps pixel art sharp
 context.imageSmoothingEnabled = false;
 
@@ -58,6 +62,14 @@ bgImage.src = './Assets/Images/Pellet Town.png';
 // Declare sprites
 let background;
 let player;
+
+// Declare key presses
+const keys = new Map([
+  ['up', false],
+  ['down', false],
+  ['left', false],
+  ['right', false],
+]);
 
 // Gameloop
 function gameLoop() {
@@ -114,19 +126,23 @@ window.addEventListener('resize', function () {
   player.drawChar();
 });
 
-window.addEventListener('keydown', e => {
-  switch (e.key) {
-    case 'w' || 'ArrowUp':
-      break;
-    case 's' || 'ArrowDown':
-      break;
-    case 'd' || 'ArrowRight':
-      break;
-    case 'a' || 'ArrowLeft':
-      break;
-  }
-});
-
-// Initialization
-setCanvasSize();
-setCanvasColor();
+const keyEvents = ['keydown', 'keyup'];
+for (const event in keyEvents) {
+  window.addEventListener(event, e => {
+    const state = event === 'keydown' ? true : false;
+    switch (e.key) {
+      case 'w' || 'ArrowUp':
+        keys.set('up', state);
+        break;
+      case 's' || 'ArrowDown':
+        keys.set('down', state);
+        break;
+      case 'd' || 'ArrowRight':
+        keys.set('right', state);
+        break;
+      case 'a' || 'ArrowLeft':
+        keys.set('left', state);
+        break;
+    }
+  });
+}
