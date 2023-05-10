@@ -28,7 +28,7 @@ Tiled:
     5. Exporting:
         - Export the collision, foreground objects, and the rest of map separately
             - Make collision, foreground objects, etc. invisible
-        - File -> Export As Image -> Only include visible layers
+        - File -> Export As Image -> Only include visible layers & Current zoom level (to scale the image up)
 
 HTML:
     - Set up canvas element
@@ -38,3 +38,28 @@ HTML:
 JS:
     - Select the canvas element using document.querySelector('canvas')
     - Set canvas dimensions using .width and .height properties
+    - Get the context using .getContext('2d')
+
+    Context Methods:
+        .fillStyle = 'color'
+        .fillRect = ('x', 'y', 'width', 'height')
+        .drawImage('html image object', 'x', 'y')
+            const 'var' = new Image()
+            'var'.src = './image path'
+
+    'context'.drawImage() needs to be passed an html image constructed from new Image(), and has its .src property set to the image path
+
+    The html image object takes time to load, so assign the 'image'.onload property to a callback function that calls 'context'.drawImage()
+
+    * To scale the canvas to the window height:
+        1. set canvas.width = window.innerWidth - 4 and canvas.height = window.innerHeight - 4;
+
+        2. window.addEventListener('resize', function () {reset canvas dimensions & reload and scale any images})
+
+        3. To scale images, need to:
+            const scaleX = (canvas.width / image.width) * 4;
+            const scaleY = (canvas.height / image.height) * 4;
+            context.save();
+            context.scale(scaleX, scaleY);
+            context.drawImage(image, 0, 0);
+            context.restore();
