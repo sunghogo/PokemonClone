@@ -1,15 +1,15 @@
 // Classes
 class Sprite {
-  constructor({ position, velocity, image, crop }) {
+  constructor({ position, velocity, image, crop, zoom }) {
     this.position = position;
     this.image = image;
     this.crop = crop;
+    this.zoom = zoom;
   }
 
   drawBG() {
-    const zoom = 4.0;
     context.save();
-    context.scale(zoom, zoom);
+    context.scale(this.zoom, this.zoom);
     context.drawImage(this.image, this.position.x, this.position.y);
     context.restore();
   }
@@ -73,12 +73,22 @@ const keys = new Map([
 
 // Gameloop
 function gameLoop() {
+  const repo = 3;
+  // Update game state
+  // keys.forEach((value, key, map) => {
+  //   if (value && key === 'up') background.position.y -= repo;
+  //   else if (value && key === 'down') background.position.y += repo;
+  //   else if (value && key === 'left') background.position.x -= repo;
+  //   else if (value && key === 'right') background.position.x += repo;
+  // });
+  console.log('Tick');
+
   // Draw sprites
   background.drawBG();
   player.drawChar();
 
   // Next frame
-  requestAnimationFrame(gameLoop());
+  requestAnimationFrame(gameLoop);
 }
 
 // Set .onload Event Handlers
@@ -87,6 +97,7 @@ bgImage.onload = () => {
   background = new Sprite({
     position: { x: -bgImage.width / 4, y: -bgImage.height / 3 },
     image: bgImage,
+    zoom: 4.0,
   });
 
   // Draw bg
@@ -126,21 +137,24 @@ window.addEventListener('resize', function () {
   player.drawChar();
 });
 
-const keyEvents = ['keydown', 'keyup'];
-for (const event in keyEvents) {
+for (const event of ['keydown', 'keyup']) {
   window.addEventListener(event, e => {
     const state = event === 'keydown' ? true : false;
     switch (e.key) {
-      case 'w' || 'ArrowUp':
+      case 'w':
+      case 'ArrowUp':
         keys.set('up', state);
         break;
-      case 's' || 'ArrowDown':
+      case 's':
+      case 'ArrowDown':
         keys.set('down', state);
         break;
-      case 'd' || 'ArrowRight':
+      case 'd':
+      case 'ArrowRight':
         keys.set('right', state);
         break;
-      case 'a' || 'ArrowLeft':
+      case 'a':
+      case 'ArrowLeft':
         keys.set('left', state);
         break;
     }
