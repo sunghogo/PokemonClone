@@ -65,8 +65,15 @@ JS:
             context.drawImage(image, 0, 0);
             context.restore();
 
+        * Don't let the background scale with window otherwise cannot do absolute positioning with constantly changing proportions
+
     Since image.onload event handler calls the callback function upon loading, smaller images will load faster and maybe be overlapped by the bigger, slower images
 
     Since the image starts loading once the .src property has been set, the .onload event handlers should be set beforehand
 
     .drawImage('html image object', 'crop x', 'crop y', 'crop width', 'crop height', 'x', 'y', 'rendered width', 'rendered height')
+
+    Create a game loop function that recursively calls itself using requestAnimationFrame():
+        function gameLoop() {
+            requestAnimationFrame(gameLoop())
+        }
