@@ -38,6 +38,7 @@ HTML:
     - Set up canvas element
     - Link .js in script element
     - Link .css in link element
+    - Scripts linked below can use variables from scripts above them
 
 JS:
     - Select the canvas element using document.querySelector('canvas')
