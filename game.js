@@ -8,13 +8,16 @@ class Sprite {
   }
 
   drawBG() {
-    context.save();
-    context.scale(this.zoom, this.zoom);
+    context.imageSmoothingEnabled = false; // Keeps pixel art sharp
+    // context.save();
+    // context.scale(this.zoom, this.zoom);
     context.drawImage(this.image, this.position.x, this.position.y);
-    context.restore();
+    console.log('bg', this.position.x, this.position.y);
+    // context.restore();
   }
 
   drawChar() {
+    context.imageSmoothingEnabled = false; // Keeps pixel art sharp
     context.drawImage(
       this.image,
       this.crop.x,
@@ -26,6 +29,7 @@ class Sprite {
       this.crop.width,
       this.crop.height
     );
+    console.log('player', this.position.x, this.position.y);
   }
 }
 
@@ -41,6 +45,16 @@ function setCanvasColor() {
   context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+function centerChar() {
+  player.position.x = canvas.width / 2 - playerImage.width / 8;
+  player.position.y = canvas.height / 2 - playerImage.height / 2;
+}
+
+function centerBG() {
+  background.position.x = -bgImage.width / 2.86 - (49 - player.position.x);
+  background.position.y = -bgImage.height / 2.16 - (-36 - player.position.y);
+}
+
 // Canvas selector and context
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
@@ -49,15 +63,12 @@ const context = canvas.getContext('2d');
 setCanvasSize();
 setCanvasColor();
 
-// Keeps pixel art sharp
-context.imageSmoothingEnabled = false;
-
 // Declare html image objects
 const bgImage = new Image();
 const playerImage = new Image();
 
-// Set src / Begin loading images
-bgImage.src = './Assets/Images/Pellet Town.png';
+// Load player sprite
+playerImage.src = './Assets/Images/playerDown.png';
 
 // Declare sprites
 let background;
@@ -95,24 +106,29 @@ function gameLoop() {
 bgImage.onload = () => {
   // Initialize bg sprite
   background = new Sprite({
-    position: { x: -bgImage.width / 4, y: -bgImage.height / 3 },
+    position: {
+      x: -bgImage.width / 2.86 - (49 - player.position.x),
+      y: -bgImage.height / 2.16 - (-36 - player.position.y),
+    },
     image: bgImage,
     zoom: 4.0,
   });
 
+  // Draw player
+  player.drawChar();
   // Draw bg
   background.drawBG();
 
-  // Load player sprite
-  playerImage.src = './Assets/Images/playerDown.png';
+  // Start game loop after all images have loaded
+  gameLoop();
 };
 
 playerImage.onload = () => {
   // Initialize player sprite
   player = new Sprite({
     position: {
-      x: bgImage.width / 2 - playerImage.width / 5.2,
-      y: bgImage.height / 2 - playerImage.height / 3,
+      x: canvas.width / 2 - playerImage.width / 8,
+      y: canvas.height / 2 - playerImage.height / 2,
     },
     image: playerImage,
     crop: {
@@ -123,16 +139,18 @@ playerImage.onload = () => {
     },
   });
 
-  // Draw player
-  player.drawChar();
-
-  // Start game loop after all images have loaded
-  gameLoop();
+  // Set src / Begin loading images
+  bgImage.src = './Assets/Images/Pellet Town Scaled.png';
 };
 
 // Event Handlers
 window.addEventListener('resize', function () {
   setCanvasSize();
+  setCanvasColor();
+
+  centerChar();
+  centerBG();
+
   background.drawBG();
   player.drawChar();
 });
