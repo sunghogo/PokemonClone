@@ -1,76 +1,132 @@
-// Selector and Context
-const canvas = document.querySelector('canvas');
-const context = canvas.getContext('2d');
+// Classes
+class Sprite {
+  constructor({ position, velocity, image, crop }) {
+    this.position = position;
+    this.image = image;
+    this.crop = crop;
+  }
 
-// Declare html image objects
-const bgImage = new Image();
-const playerImage = new Image();
+  drawBG() {
+    const zoom = 4.0;
+    context.save();
+    context.scale(zoom, zoom);
+    context.drawImage(this.image, this.position.x, this.position.y);
+    context.restore();
+  }
 
-// Keeps pixel art sharp
-context.imageSmoothingEnabled = false;
+  drawChar() {
+    context.drawImage(
+      this.image,
+      this.crop.x,
+      this.crop.y,
+      this.crop.width,
+      this.crop.height,
+      this.position.x,
+      this.position.y,
+      this.crop.width,
+      this.crop.height
+    );
+  }
+}
 
-function setCanvas() {
+// Functions
+function setCanvasSize() {
   // Set canvas dimensions
   canvas.width = window.innerWidth - 4;
   canvas.height = window.innerHeight - 4;
 }
 
-function loadImages() {
-  // Draw bg image
-  bgImage.onload = () => {
-    // Scaling constants
-    const zoom = 4.0;
-
-    // Don't let the background scale with window otherwise cannot do absolute positioning with constantly changing proportions
-    // const scaleX = canvas.width / bgImage.width;
-    // const scaleY = canvas.height / bgImage.height;
-
-    context.save();
-    context.scale(zoom, zoom);
-    context.drawImage(bgImage, -bgImage.width / 4, -bgImage.height / 3);
-    context.restore();
-
-    // Load player image
-    playerImage.src = './Assets/Images/playerDown.png';
-  };
-
-  // Draw player image
-  playerImage.onload = () => {
-    // Draw player
-    context.drawImage(
-      playerImage,
-      0,
-      0,
-      playerImage.width / 4,
-      playerImage.height,
-      bgImage.width / 2 - playerImage.width / 5.2,
-      bgImage.height / 2 - playerImage.height / 3,
-      playerImage.width / 4,
-      playerImage.height
-    );
-  };
-
-  // Set src / Begin loading images
-  bgImage.src = './Assets/Images/Pellet Town.png';
+function setCanvasColor() {
+  context.fillStyle = 'white';
+  context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// Event Handlers
-// Set window resizing event listener
-window.addEventListener('resize', function () {
-  // Clear context
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  // Set canvas dimensions
-  setCanvas();
+// Canvas selector and context
+const canvas = document.querySelector('canvas');
+const context = canvas.getContext('2d');
 
-  // Reload images
-  loadImages();
+// Keeps pixel art sharp
+context.imageSmoothingEnabled = false;
+
+// Declare html image objects
+const bgImage = new Image();
+const playerImage = new Image();
+
+// Set src / Begin loading images
+bgImage.src = './Assets/Images/Pellet Town.png';
+
+// Declare sprites
+let background;
+let player;
+
+// Gameloop
+function gameLoop() {
+  // Draw sprites
+  background.drawBG();
+  player.drawChar();
+
+  // Next frame
+  requestAnimationFrame(gameLoop());
+}
+
+// Set .onload Event Handlers
+bgImage.onload = () => {
+  // Initialize bg sprite
+  background = new Sprite({
+    position: { x: -bgImage.width / 4, y: -bgImage.height / 3 },
+    image: bgImage,
+  });
+
+  // Draw bg
+  background.drawBG();
+
+  // Load player sprite
+  playerImage.src = './Assets/Images/playerDown.png';
+};
+
+playerImage.onload = () => {
+  // Initialize player sprite
+  player = new Sprite({
+    position: {
+      x: bgImage.width / 2 - playerImage.width / 5.2,
+      y: bgImage.height / 2 - playerImage.height / 3,
+    },
+    image: playerImage,
+    crop: {
+      x: 0,
+      y: 0,
+      width: playerImage.width / 4,
+      height: playerImage.height,
+    },
+  });
+
+  // Draw player
+  player.drawChar();
+
+  // Start game loop after all images have loaded
+  gameLoop();
+};
+
+// Event Handlers
+window.addEventListener('resize', function () {
+  setCanvasSize();
+  background.drawBG();
+  player.drawChar();
+});
+
+window.addEventListener('keydown', e => {
+  switch (e.key) {
+    case 'w' || 'ArrowUp':
+      break;
+    case 's' || 'ArrowDown':
+      break;
+    case 'd' || 'ArrowRight':
+      break;
+    case 'a' || 'ArrowLeft':
+      break;
+  }
 });
 
 // Initialization
-setCanvas();
-
-// Set background
-context.fillStyle = 'white';
-context.fillRect(0, 0, canvas.width, canvas.height);
-
-loadImages();
+setCanvasSize();
+setCanvasColor();
