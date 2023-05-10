@@ -79,7 +79,7 @@ playerImage.src = './Assets/Images/playerDown.png';
 let background;
 let player;
 
-// Declare key presses
+// Declare key press map
 const keys = new Map([
   ['up', false],
   ['down', false],
@@ -120,10 +120,10 @@ bgImage.onload = () => {
     zoom: 4.0,
   });
 
-  // Draw player
-  player.drawChar();
   // Draw bg
   background.drawBG();
+  // Draw player
+  player.drawChar();
 
   // Start game loop after all images have loaded
   gameLoop();
