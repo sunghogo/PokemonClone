@@ -12,7 +12,7 @@ class Sprite {
     // context.save();
     // context.scale(this.zoom, this.zoom);
     context.drawImage(this.image, this.position.x, this.position.y);
-    console.log('bg', this.position.x, this.position.y);
+    // console.log('bg', this.position.x, this.position.y);
     // context.restore();
   }
 
@@ -29,7 +29,22 @@ class Sprite {
       this.crop.width,
       this.crop.height
     );
-    console.log('player', this.position.x, this.position.y);
+    // console.log('player', this.position.x, this.position.y);
+  }
+}
+
+class Boundary {
+  static width = 48;
+  static height = 48;
+  constructor({ position }) {
+    this.position = position;
+    this.width = 48;
+    this.height = 48;
+  }
+
+  draw() {
+    context.fillStyle = 'red';
+    context.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
 
@@ -75,9 +90,15 @@ const playerImage = new Image();
 // Load player sprite
 playerImage.src = './Assets/Images/playerDown.png';
 
+// Declare bgOffset
+let bgOffset;
+
 // Declare sprites
 let background;
 let player;
+
+// Declare boundary
+const boundaries = [];
 
 // Declare key press map
 const keys = new Map([
@@ -99,8 +120,9 @@ function gameLoop() {
   });
   console.log('Tick');
 
-  // Draw sprites
+  // Draw images
   background.drawBG();
+  boundaries.forEach(boundary => boundary.draw());
   player.drawChar();
 
   // Next frame
@@ -109,12 +131,33 @@ function gameLoop() {
 
 // Set .onload Event Handlers
 bgImage.onload = () => {
+  // Set offset
+  bgOffset = {
+    x: -bgImage.width / 2.86 - (49 - player.position.x),
+    y: -bgImage.height / 2.16 - (-36 - player.position.y),
+  };
+
+  // Set Collisions
+  collisionsMap.forEach((row, column) => {
+    row.forEach((e, i) => {
+      if (e === 1025)
+        boundaries.push(
+          new Boundary({
+            position: {
+              x: i * Boundary.width + bgOffset.x,
+              y: column * Boundary.height + bgOffset.y,
+            },
+          })
+        );
+    });
+  });
+
   // Initialize bg sprite
   background = new Sprite({
     // Find fixed point in bg image, and offset it by the player's centered positions
     position: {
-      x: -bgImage.width / 2.86 - (49 - player.position.x),
-      y: -bgImage.height / 2.16 - (-36 - player.position.y),
+      x: bgOffset.x,
+      y: bgOffset.y,
     },
     image: bgImage,
     zoom: 4.0,
