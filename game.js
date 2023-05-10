@@ -71,9 +71,11 @@ function centerChar() {
   return [player.position.x - oldPosX, player.position.y - oldPosY];
 }
 
-function centerBG(resizeOffset) {
-  background.position.x += resizeOffset[0];
-  background.position.y += resizeOffset[1];
+function centerMovables(resizeOffset) {
+  movables.forEach(movable => {
+    movable.position.x += resizeOffset[0];
+    movable.position.y += resizeOffset[1];
+  });
 }
 
 // Canvas selector and context
@@ -218,7 +220,7 @@ window.addEventListener('resize', function () {
   setCanvasColor();
 
   const resizeOffset = centerChar();
-  centerBG(resizeOffset);
+  centerMovables(resizeOffset);
 
   background.drawBG();
   player.drawChar();
