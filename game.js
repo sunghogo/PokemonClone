@@ -1,36 +1,25 @@
 // Classes
 class Sprite {
-  constructor({ position, velocity, image, crop, zoom, frames = { max: 1 } }) {
+  constructor({ position, velocity, image, crop, frames = { max: 1 } }) {
     this.position = position;
     this.image = image;
     this.crop = crop;
-    this.zoom = zoom;
     this.frames = frames;
   }
 
-  drawBG() {
-    context.imageSmoothingEnabled = false; // Keeps pixel art sharp
-    // context.save();
-    // context.scale(this.zoom, this.zoom);
-    context.drawImage(this.image, this.position.x, this.position.y);
-    // console.log('bg', this.position.x, this.position.y);
-    // context.restore();
-  }
-
-  drawChar() {
+  draw() {
     context.imageSmoothingEnabled = false; // Keeps pixel art sharp
     context.drawImage(
       this.image,
-      this.crop.x,
-      this.crop.y,
-      this.crop.width,
-      this.crop.height,
+      0,
+      0,
+      this.image.width / this.frames.max,
+      this.image.height,
       this.position.x,
       this.position.y,
-      this.crop.width,
-      this.crop.height
+      this.image.width / this.frames.max,
+      this.image.height
     );
-    // console.log('player', this.position.x, this.position.y);
   }
 }
 
@@ -137,20 +126,20 @@ function gameLoop() {
         movable.position.x -= repo;
       });
   });
-  console.log('Tick');
 
   // Draw images
-  background.drawBG();
+  background.draw();
   boundaries.forEach(boundary => boundary.draw());
-  player.drawChar();
+  player.draw();
 
   // Next frame
+  console.log('Tick');
   requestAnimationFrame(gameLoop);
 }
 
 // Set .onload Event Handlers
 bgImage.onload = () => {
-  // Set offset
+  // Set bg offset
   bgOffset = {
     x: -bgImage.width / 2.86 - (49 - player.position.x),
     y: -bgImage.height / 2.16 - (-36 - player.position.y),
@@ -179,16 +168,15 @@ bgImage.onload = () => {
       y: bgOffset.y,
     },
     image: bgImage,
-    zoom: 4.0,
   });
 
   // Set movables
   movables.push(background, ...boundaries);
 
   // Draw bg
-  background.drawBG();
+  background.draw();
   // Draw player
-  player.drawChar();
+  player.draw();
 
   // Start game loop after all images have loaded
   gameLoop();
@@ -202,12 +190,7 @@ playerImage.onload = () => {
       y: canvas.height / 2 - playerImage.height / 2,
     },
     image: playerImage,
-    crop: {
-      x: 0,
-      y: 0,
-      width: playerImage.width / 4,
-      height: playerImage.height,
-    },
+    frames: { max: 4 },
   });
 
   // Set src / Begin loading images
@@ -222,8 +205,8 @@ window.addEventListener('resize', function () {
   const resizeOffset = centerChar();
   centerMovables(resizeOffset);
 
-  background.drawBG();
-  player.drawChar();
+  background.draw();
+  player.draw();
 });
 
 for (const event of ['keydown', 'keyup']) {
