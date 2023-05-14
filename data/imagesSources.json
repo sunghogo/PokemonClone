@@ -1,0 +1,14 @@
+[
+ "./images/battleBackground.png",
+ "./images/draggleSprite.png",
+ "./images/embySprite.png",
+ "./images/fireball.png",
+ "./images/foreground.png",
+ "./images/pelletTown.png",
+ "./images/pelletTownScaled.png",
+ "./images/playerDown.png",
+ "./images/playerLeft.png",
+ "./images/playerRight.png",
+ "./images/playerUp.png",
+ "./images/sceneSpriteSheet.png"
+]
