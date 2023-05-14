@@ -1,23 +1,15 @@
-// const fs = require('fs');
-
-// fs.readdir('./images', (err, files) => {
-//   if (err) {
-//     console.error(err);
-//     return;
-//   }
-//   console.log(files);
-// });
-
+// Declare fs, path, directories, file suffixes
 const fs = require("fs");
 const path = require("path");
 
 const directoryPaths = ["./images", "./audio"];
 const outputDirectory = "./data";
-const fileEnding = "Sources.json";
+const fileSuffix = "Sources.json";
 
+// Iterate over each src directory
 directoryPaths.forEach((directoryPath) =>
   fs.readdir(directoryPath, (err, files) => {
-    // Catch error
+    // Catch 1st error
     if (err) {
       return console.log("Unable to scan directory: " + err);
     }
@@ -32,9 +24,10 @@ directoryPaths.forEach((directoryPath) =>
     // Write all the paths into a JSON file at specified output directory
     const outputFilePath = path.join(
       outputDirectory,
-      directoryPath.split("/").slice(-1) + fileEnding
+      directoryPath.split("/").slice(-1) + fileSuffix
     );
     fs.writeFile(outputFilePath, JSON.stringify(filePaths, null, 1), (err) => {
+      // Catch 2nd error
       if (err) {
         console.log(`Error writing ${outputFilePath}`, err);
       } else {
