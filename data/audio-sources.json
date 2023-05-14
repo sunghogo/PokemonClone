@@ -1,9 +1,9 @@
 [
- "./audio/battle.mp3",
- "./audio/fireball-hit.wav",
- "./audio/init-battle.wav",
- "./audio/init-fireball.wav",
- "./audio/map.wav",
- "./audio/tackle-hit.wav",
- "./audio/victory.wav"
+ "audio\\battle.mp3",
+ "audio\\fireball-hit.wav",
+ "audio\\init-battle.wav",
+ "audio\\init-fireball.wav",
+ "audio\\map.wav",
+ "audio\\tackle-hit.wav",
+ "audio\\victory.wav"
 ]
