@@ -50,6 +50,19 @@ function setCanvasColor() {
   context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const imgName = src.split('/').slice(-1);
+    img.onload = () => {
+      console.log(`${imgName} loaded`);
+      resolve(img);
+    };
+    img.onerror = reject(`${imgName} failed to load`);
+    img.src = src;
+  });
+}
+
 function centerChar() {
   const oldPosX = player.position.x;
   const oldPosY = player.position.y;
@@ -79,8 +92,29 @@ setCanvasColor();
 const bgImage = new Image();
 const playerImage = new Image();
 
+// Sources
+const sources = [
+  './Assets/Images/playerDown.png',
+  './Assets/Images/Pellet Town Scaled.png',
+];
+
+setTimeout =
+  (() => {
+    Promise.all(sources.map(loadImage))
+      .then(images => {
+        images.forEach(img => {
+          console.log(img.src);
+        });
+      })
+      .catch(err => {
+        // Handle any errors that occurred while loading the images
+        console.error('An error occurred while loading the images:', err);
+      });
+  },
+  5000);
+
 // Load player sprite
-playerImage.src = './Assets/Images/playerDown.png';
+// playerImage.src = './Assets/Images/playerDown.png';
 
 // Declare bgOffset
 let bgOffset;
