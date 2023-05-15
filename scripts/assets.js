@@ -1,15 +1,27 @@
 // Parse asset src's from JSON data
+const srcsFilePath = './data/sources-paths.json';
 const sources = { images: [], audio: [] };
 
-fetch('./data/images-sources.json')
-  .then(response => response.json())
-  .then(paths => paths.forEach(path => sources.images.push(path)))
-  .catch(err => console.log(`An error has occured: ${err}`));
+function fetchAssetType(src) {
+  return fetch(src)
+    .then(response => response.json())
+    .then(paths => {
+      const type = src.split('\\').slice(-1)[0].split('-')[0];
+      sources[type] = paths;
+    })
+    .catch(err => console.log(`An error has occured: ${err}`));
+}
 
-fetch('./data/audio-sources.json')
-  .then(response => response.json())
-  .then(paths => paths.forEach(path => sources.audio.push(path)))
-  .catch(err => console.log(`An error has occured: ${err}`));
+function fetchAssets(srcs) {
+  return Promise.all(srcs.map(src => fetchAssetType(src)));
+}
+
+function fetchSources(srcsFilePath) {
+  fetch(srcsFilePath)
+    .then(response => response.json())
+    .then(srcs => fetchAssets(srcs))
+    .catch(err => console.log(`An error has occured: ${err}`));
+}
 
 function loadImagePromise(src) {
   return new Promise((resolve, reject) => {
@@ -23,7 +35,7 @@ function loadImagePromise(src) {
   });
 }
 
-function loadAssets(sources) {
+function loadImages(sources) {
   Promise.all(sources.map(loadImagePromise))
     .then(images => {
       images.forEach(img => {
@@ -35,3 +47,6 @@ function loadAssets(sources) {
       console.log(`An error occurred while loading the images: ${err}`);
     });
 }
+
+fetchSources(srcsFilePath);
+console.log(sources);
