@@ -2,6 +2,7 @@ import * as assets from './assets.js';
 
 const sources = assets.getSources();
 const images = assets.getImages();
+console.log(sources);
 console.log(images);
 
 // Classes

@@ -30,9 +30,7 @@ function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     const imgName = src.split('/').slice(-1);
-    img.onload = () => {
-      resolve(img);
-    };
+    img.onload = () => resolve(img);
     img.onerror = reject(`${imgName} failed to load`);
     img.src = src; // Begins loading image
   });
