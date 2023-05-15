@@ -19,7 +19,7 @@ directoryPaths.forEach(directoryPath =>
     // Parse string paths into specified format
     const filePaths = [];
     files.forEach(file => {
-      const filePath = path.join(directoryPath, file);
+      const filePath = `${directoryPath}/${file}`; // src paths need to be in ./"" format
       filePaths.push(filePath);
     });
 

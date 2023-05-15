@@ -1,14 +1,14 @@
 [
- "images\\battle-background.png",
- "images\\draggle-sprite.png",
- "images\\emby-sprite.png",
- "images\\fireball.png",
- "images\\foreground.png",
- "images\\pellet-town-scaled.png",
- "images\\pellet-town.png",
- "images\\player-down.png",
- "images\\player-left.png",
- "images\\player-right.png",
- "images\\player-up.png",
- "images\\scene-sprite-sheet.png"
+ "./images/battle-background.png",
+ "./images/draggle-sprite.png",
+ "./images/emby-sprite.png",
+ "./images/fireball.png",
+ "./images/foreground.png",
+ "./images/pellet-town-scaled.png",
+ "./images/pellet-town.png",
+ "./images/player-down.png",
+ "./images/player-left.png",
+ "./images/player-right.png",
+ "./images/player-up.png",
+ "./images/scene-sprite-sheet.png"
 ]
