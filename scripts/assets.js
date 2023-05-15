@@ -8,7 +8,7 @@ function fetchAssetType(src) {
     .then(response => response.json())
     .then(paths => {
       const type = src.split('\\').slice(-1)[0].split('-')[0];
-      sources[type] = paths;
+      for (const path of paths) sources[type].push(path);
     })
     .catch(err => console.log(`An error has occured: ${err}`));
 }
@@ -39,20 +39,20 @@ function loadImage(src) {
 }
 
 // Extracts file paths from sources.images
-function loadImages(sources) {
-  Promise.all(
-    sources.images
-      .map(loadImage)
-      .then(images => {
-        console.log(images);
-        images.forEach(img => {
-          console.log(img.src);
-        });
-      })
-      .catch(err => {
-        console.log(`An error occurred while loading the images: ${err}`);
-      })
-  );
+function loadImages() {
+  console.log(sources.images);
+  sources.images.map(src => console.log(src));
+  Promise.all(sources.images.map(loadImage))
+    .then(images => {
+      console.log(images);
+      // images.forEach(img => {
+      //   console.log(img.src);
+      // });
+    })
+    .catch(err => {
+      console.log(`An error occurred while loading the images: ${err}`);
+    });
+  return images;
 }
 
 // Loads sources object if it is not properly initialized and returns it
@@ -66,7 +66,7 @@ function getSources() {
 
 // Loads images object if it is not properly initialized and returns it
 function getImages() {
-  return images;
+  return Object.keys(images).length === 0 ? loadImages() : images;
 }
 
 export { getSources, getImages };
