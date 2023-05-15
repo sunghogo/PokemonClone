@@ -1,5 +1,8 @@
-import * as assets from '/scripts/assets.js';
-console.log(assets.sources);
+import * as assets from './assets.js';
+
+const sources = assets.getSources();
+const images = assets.getImages();
+console.log(images);
 
 // Classes
 class Sprite {

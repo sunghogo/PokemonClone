@@ -64,4 +64,9 @@ function getSources() {
     : fetchSources();
 }
 
-export { getSources, loadImages };
+// Loads images object if it is not properly initialized and returns it
+function getImages() {
+  return images;
+}
+
+export { getSources, getImages };
