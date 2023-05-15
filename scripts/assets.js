@@ -1,6 +1,7 @@
-// Parse asset src's from JSON data
+// Retrieve asset file paths stored in sources JSON files
 const srcsFilePath = './data/sources-paths.json';
 const sources = { images: [], audio: [] };
+const images = {};
 
 function fetchAssetType(src) {
   return fetch(src)
@@ -16,14 +17,16 @@ function fetchAssets(srcs) {
   return Promise.all(srcs.map(src => fetchAssetType(src)));
 }
 
-function fetchSources(srcsFilePath) {
+// Extracts file paths from JSON source files, and loads them into sources object
+function fetchSources() {
   fetch(srcsFilePath)
     .then(response => response.json())
     .then(srcs => fetchAssets(srcs))
     .catch(err => console.log(`An error has occured: ${err}`));
+  return sources;
 }
 
-function loadImagePromise(src) {
+function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     const imgName = src.split('/').slice(-1);
@@ -35,18 +38,30 @@ function loadImagePromise(src) {
   });
 }
 
+// Extracts file paths from sources.images
 function loadImages(sources) {
-  Promise.all(sources.map(loadImagePromise))
-    .then(images => {
-      images.forEach(img => {
-        console.log(img.src);
-      });
-    })
-    .catch(err => {
-      // Handle any errors that occurred while loading the images
-      console.log(`An error occurred while loading the images: ${err}`);
-    });
+  Promise.all(
+    sources.images
+      .map(loadImage)
+      .then(images => {
+        console.log(images);
+        images.forEach(img => {
+          console.log(img.src);
+        });
+      })
+      .catch(err => {
+        console.log(`An error occurred while loading the images: ${err}`);
+      })
+  );
 }
 
-fetchSources(srcsFilePath);
-console.log(sources);
+// Loads sources object if it is not properly initialized and returns it
+function getSources() {
+  return Object.keys(sources)
+    .map(type => sources[type].length === 0)
+    .reduce((acc, typeEmpty) => acc && !typeEmpty, true)
+    ? sources
+    : fetchSources();
+}
+
+export { getSources, loadImages };
