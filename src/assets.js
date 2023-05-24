@@ -1,49 +1,53 @@
-// Retrieve asset file paths stored in src JSON files
+// This module fetches, loads, and stores asset files
+
+// Declare src paths and loaded asset objects
 const srcsFilePath = './data/srcs.json';
 const assetSrcs = { images: [], audio: [] };
 const images = {};
 
-// Retrieves src JSON file paths
-async function fetchSrcs() {
+// Parses HTML asset src path into asset type
+function parseAssetType(str) {
+  return str.split('/').slice(-1)[0].split('-')[0];
+}
+
+// Extracts data/src paths stored in src.json files
+async function fetchSrc(src) {
   try {
-    const resSrcs = await fetch(srcsFilePath);
-    if (!resSrcs.ok) throw new Error('Error loading srcs.json');
-    const srcs = await resSrcs.json();
-    return srcs;
+    const res = await fetch(src);
+    if (!res.ok) throw new Error(`Failed loading ${src} file`);
+    const data = await res.json();
+    return data;
   } catch (err) {
     console.error(`${err.message}`);
   }
 }
 
-// Retrieves asset files src paths and loads them into assetSrcs
-async function fetchAssets(srcs) {
-  await srcs.forEach(async src => {
-    try {
-      const assetType = src.split('/').slice(-1)[0].split('-')[0];
-      const resSrc = await fetch(src);
-      if (!resSrc.ok) throw new Error(`Error loading ${asset} src file`);
-      const assetPaths = await resSrc.json();
-      assetPaths.forEach(src => assetSrcs[assetType].push(src));
-    } catch (err) {
-      console.error(`${err.message}`);
-    }
-  });
-}
-
-// Retrieves asset file paths from src JSON files and loads them into assetSrcs
-async function extractAssetSrcs() {
+// Retrieves asset src paths and loads them into assetSrcs object
+async function loadAssetSrc(src) {
   try {
-    const srcs = await fetchSrcs();
-    await fetchAssets(srcs);
+    const assetType = parseAssetType(src);
+    const assetPaths = await fetchSrc(src);
+    assetPaths.forEach(src => assetSrcs[assetType].push(src));
   } catch (err) {
-    console.error(`Loading source paths failed`);
+    console.error(`${err.message}`);
   }
 }
 
+// Loads all assets srcs into assetSrcs object
+async function loadAllAssetSrcs() {
+  try {
+    const srcs = await fetchSrc(srcsFilePath);
+    srcs.forEach(async src => await loadAssetSrc(src));
+  } catch (err) {
+    console.error(`Loading assets' src paths failed`);
+  }
+}
+
+// Loads images and returns the created img object
 function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    const imgName = src.split('/').slice(-1);
+    const imgName = src.split('/').slice(-1)[0];
     img.onload = () => resolve(img);
     img.onerror = reject(`${imgName} failed to load`);
     img.src = src; // Begins loading image
@@ -51,7 +55,7 @@ function loadImage(src) {
 }
 
 // Extracts file paths from sources.images
-function loadImages() {
+async function loadImages() {
   console.log(sources.images);
   sources.images.map(src => console.log(src));
   Promise.all(sources.images.map(loadImage))
@@ -81,6 +85,6 @@ function getImages() {
   return Object.keys(images).length === 0 ? loadImages() : images;
 }
 
-await extractAssetSrcs();
+await loadAllAssetSrcs();
 
 export { getSources, getImages };
