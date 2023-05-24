@@ -1,19 +1,12 @@
 // This module fetches, loads, stores, and returns asset files
 
+// Import modules
+import * as Parse from './parse.js';
+
 // Declare src paths and loaded asset objects
 const srcsFilePath = './data/srcs.json';
 const assetSrcs = { images: [], audio: [] };
 const assets = { images: [], audio: [] };
-
-// Parses HTML asset src file path into asset type
-function parseAssetType(src) {
-  return src.split('/').slice(-1)[0].split('-')[0];
-}
-
-// Parses HTML image src path into image name
-function parseImageName(src) {
-  return src.split('/').slice(-1)[0];
-}
 
 // Extracts data/src paths stored in src.json files
 async function fetchSrc(src) {
@@ -30,7 +23,7 @@ async function fetchSrc(src) {
 // Retrieves asset src paths and loads them into assetSrcs object
 async function loadAssetSrc(src) {
   try {
-    const assetType = parseAssetType(src);
+    const assetType = Parse.parseAssetType(src);
     const assetPaths = await fetchSrc(src);
     for (const path of assetPaths) assetSrcs[assetType].push(path);
   } catch (err) {
@@ -52,7 +45,7 @@ async function loadAllAssetSrcs() {
 function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    const imgName = parseImageName(src);
+    const imgName = Parse.parseImageName(src);
     img.onload = resolve(img);
     img.onerror = reject(`${imgName} failed to load`);
     img.src = src; // Begins loading image
@@ -69,6 +62,7 @@ async function loadImages() {
   }
 }
 
+// Load assets within module execution
 await loadAllAssetSrcs();
 await loadImages();
 console.log(`Loading Assets Finished`);
