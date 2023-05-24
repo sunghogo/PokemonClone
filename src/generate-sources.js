@@ -6,8 +6,8 @@ const directoryPaths = ['./images', './audio'];
 const outputDirectory = './data';
 const fileSuffix = '-sources.json';
 
-const sourcesPathsFileName = 'sources-paths.json';
-const sourcesPathsFilePath = path.join(outputDirectory, sourcesPathsFileName);
+const sourcesMasterFilename = 'sources-paths.json';
+const sourcesMasterFilePath = path.join(outputDirectory, sourcesMasterFilename);
 const sourcesPaths = [];
 
 // Iterate over each asset directory
@@ -27,7 +27,10 @@ directoryPaths.forEach(directoryPath => {
     outputDirectory,
     directoryPath.split('/').slice(-1) + fileSuffix
   );
-  sourcesPaths.push(outputFilePath);
+  const outputFilePathMaster = `${directoryPath}/${
+    directoryPath.split('/').slice(-1) + fileSuffix
+  }`;
+  sourcesPaths.push(outputFilePathMaster);
 
   // Write all the file paths into a JSON file at specified output file path
   fs.writeFileSync(outputFilePath, JSON.stringify(filePaths, null, 1));
@@ -35,5 +38,5 @@ directoryPaths.forEach(directoryPath => {
 });
 
 // Write all the sources JSON file paths into a master JSON file
-fs.writeFileSync(sourcesPathsFilePath, JSON.stringify(sourcesPaths, null, 1));
-console.log(`${sourcesPathsFilePath} generated`);
+fs.writeFileSync(sourcesMasterFilePath, JSON.stringify(sourcesPaths, null, 1));
+console.log(`${sourcesMasterFilePath} generated`);

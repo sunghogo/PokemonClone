@@ -1,4 +1,4 @@
 [
- "data\\images-sources.json",
- "data\\audio-sources.json"
+ "./images/images-sources.json",
+ "./audio/audio-sources.json"
 ]
