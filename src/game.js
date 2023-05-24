@@ -1,7 +1,7 @@
-import * as assets from './assets.js';
+import * as Assets from './assets.js';
 
-const sources = assets.getSources();
-const images = assets.getImages();
+const sources = Assets.getSources();
+const images = Assets.getImages();
 console.log(sources);
 console.log(images);
 
