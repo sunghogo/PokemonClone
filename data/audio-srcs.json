@@ -1,0 +1,9 @@
+[
+ "./assets/audio/battle.mp3",
+ "./assets/audio/fireball-hit.wav",
+ "./assets/audio/init-battle.wav",
+ "./assets/audio/init-fireball.wav",
+ "./assets/audio/map.wav",
+ "./assets/audio/tackle-hit.wav",
+ "./assets/audio/victory.wav"
+]
