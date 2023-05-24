@@ -6,8 +6,8 @@ const directoryPaths = ['./images', './audio'];
 const outputDirectory = './data';
 const fileSuffix = '-sources.json';
 
-const sourcesMasterFilename = 'sources-paths.json';
-const sourcesMasterFilePath = path.join(outputDirectory, sourcesMasterFilename);
+const sourcesMainFilename = 'sources-paths.json';
+const sourcesMainFilePath = path.join(outputDirectory, sourcesMainFilename);
 const sourcesPaths = [];
 
 // Iterate over each asset directory
@@ -22,21 +22,21 @@ directoryPaths.forEach(directoryPath => {
     filePaths.push(filePath);
   });
 
-  // Generate output file name/path for each asset type, and push them into array for writing master source file
+  // Generate output file name/path for each asset type, and push them into array for writing main source file
   const outputFilePath = path.join(
     outputDirectory,
     directoryPath.split('/').slice(-1) + fileSuffix
   );
-  const outputFilePathMaster = `${directoryPath}/${
+  const outputFilePathMain = `${directoryPath}/${
     directoryPath.split('/').slice(-1) + fileSuffix
   }`;
-  sourcesPaths.push(outputFilePathMaster);
+  sourcesPaths.push(outputFilePathMain);
 
   // Write all the file paths into a JSON file at specified output file path
   fs.writeFileSync(outputFilePath, JSON.stringify(filePaths, null, 1));
   console.log(`${outputFilePath} generated`);
 });
 
-// Write all the sources JSON file paths into a master JSON file
-fs.writeFileSync(sourcesMasterFilePath, JSON.stringify(sourcesPaths, null, 1));
-console.log(`${sourcesMasterFilePath} generated`);
+// Write all the sources JSON file paths into a main JSON file
+fs.writeFileSync(sourcesMainFilePath, JSON.stringify(sourcesPaths, null, 1));
+console.log(`${sourcesMainFilePath} generated`);
