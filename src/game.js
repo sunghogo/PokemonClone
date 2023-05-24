@@ -1,10 +1,5 @@
 import * as Assets from './assets.js';
 
-const sources = Assets.getSources();
-const images = Assets.getImages();
-console.log(sources);
-console.log(images);
-
 // Classes
 class Sprite {
   constructor({ position, velocity, image, crop, frames = { max: 1 } }) {
