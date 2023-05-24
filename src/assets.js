@@ -1,13 +1,18 @@
-// This module fetches, loads, and stores asset files
+// This module fetches, loads, stores, and returns asset files
 
 // Declare src paths and loaded asset objects
 const srcsFilePath = './data/srcs.json';
 const assetSrcs = { images: [], audio: [] };
-const images = {};
+const assets = { images: [], audio: [] };
 
-// Parses HTML asset src path into asset type
-function parseAssetType(str) {
-  return str.split('/').slice(-1)[0].split('-')[0];
+// Parses HTML asset src file path into asset type
+function parseAssetType(src) {
+  return src.split('/').slice(-1)[0].split('-')[0];
+}
+
+// Parses HTML image src path into image name
+function parseImageName(src) {
+  return src.split('/').slice(-1)[0];
 }
 
 // Extracts data/src paths stored in src.json files
@@ -27,7 +32,7 @@ async function loadAssetSrc(src) {
   try {
     const assetType = parseAssetType(src);
     const assetPaths = await fetchSrc(src);
-    assetPaths.forEach(src => assetSrcs[assetType].push(src));
+    for (const path of assetPaths) assetSrcs[assetType].push(path);
   } catch (err) {
     console.error(`${err.message}`);
   }
@@ -37,9 +42,9 @@ async function loadAssetSrc(src) {
 async function loadAllAssetSrcs() {
   try {
     const srcs = await fetchSrc(srcsFilePath);
-    srcs.forEach(async src => await loadAssetSrc(src));
+    await Promise.all(srcs.map(src => loadAssetSrc(src)));
   } catch (err) {
-    console.error(`Loading assets' src paths failed`);
+    console.error(`${err.message}`);
   }
 }
 
@@ -47,8 +52,8 @@ async function loadAllAssetSrcs() {
 function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    const imgName = src.split('/').slice(-1)[0];
-    img.onload = () => resolve(img);
+    const imgName = parseImageName(src);
+    img.onload = resolve(img);
     img.onerror = reject(`${imgName} failed to load`);
     img.src = src; // Begins loading image
   });
@@ -56,26 +61,16 @@ function loadImage(src) {
 
 // Extracts file paths from sources.images
 async function loadImages() {
-  console.log(sources.images);
-  sources.images.map(src => console.log(src));
-  Promise.all(sources.images.map(loadImage))
-    .then(images => {
-      console.log(images);
-      // images.forEach(img => {
-      //   console.log(img.src);
-      // });
-    })
-    .catch(err => {
-      console.log(`An error occurred while loading the images: ${err}`);
-    });
-  return images;
-}
-
-// Loads images object if it is not properly initialized and returns it
-function getImages() {
-  return Object.keys(images).length === 0 ? loadImages() : images;
+  try {
+    const imgs = await Promise.all(assetSrcs.images.map(src => loadImage(src)));
+    assets.images = [...imgs];
+  } catch (err) {
+    console.error(`${err.message}`);
+  }
 }
 
 await loadAllAssetSrcs();
+await loadImages();
+console.log(`Loading Assets Finished`);
 
-export { getSources, getImages };
+export default assets;
