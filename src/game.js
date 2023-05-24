@@ -2,6 +2,7 @@
 
 // Import modules
 import assets from './assets.js';
+import keys from './keys.js';
 
 console.log(assets);
 
@@ -98,14 +99,6 @@ const boundaries = [];
 
 // Declare moveable objects
 const movables = [];
-
-// Declare key press map
-const keys = new Map([
-  ['up', false],
-  ['down', false],
-  ['left', false],
-  ['right', false],
-]);
 
 // Gameloop
 function gameLoop() {
@@ -212,27 +205,3 @@ window.addEventListener('resize', function () {
   background.draw();
   player.draw();
 });
-
-for (const event of ['keydown', 'keyup']) {
-  window.addEventListener(event, e => {
-    const state = event === 'keydown' ? true : false;
-    switch (e.key) {
-      case 'w':
-      case 'ArrowUp':
-        keys.set('up', state);
-        break;
-      case 's':
-      case 'ArrowDown':
-        keys.set('down', state);
-        break;
-      case 'd':
-      case 'ArrowRight':
-        keys.set('right', state);
-        break;
-      case 'a':
-      case 'ArrowLeft':
-        keys.set('left', state);
-        break;
-    }
-  });
-}
