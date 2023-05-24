@@ -1,29 +1,43 @@
-// Retrieve asset file paths stored in sources JSON files
-const srcsFilePath = './data/sources-paths.json';
-const sources = { images: [], audio: [] };
+// Retrieve asset file paths stored in src JSON files
+const srcsFilePath = './data/srcs.json';
+const assetSrcs = { images: [], audio: [] };
 const images = {};
 
-function fetchAssetType(src) {
-  return fetch(src)
-    .then(response => response.json())
-    .then(paths => {
-      const type = src.split('\\').slice(-1)[0].split('-')[0];
-      for (const path of paths) sources[type].push(path);
-    })
-    .catch(err => console.log(`An error has occured: ${err}`));
+// Retrieves src JSON file paths
+async function fetchSrcs() {
+  try {
+    const resSrcs = await fetch(srcsFilePath);
+    if (!resSrcs.ok) throw new Error('Error loading srcs.json');
+    const srcs = await resSrcs.json();
+    return srcs;
+  } catch (err) {
+    console.error(`${err.message}`);
+  }
 }
 
-function fetchAssets(srcs) {
-  return Promise.all(srcs.map(src => fetchAssetType(src)));
+// Retrieves asset files src paths and loads them into assetSrcs
+async function fetchAssets(srcs) {
+  await srcs.forEach(async src => {
+    try {
+      const assetType = src.split('/').slice(-1)[0].split('-')[0];
+      const resSrc = await fetch(src);
+      if (!resSrc.ok) throw new Error(`Error loading ${asset} src file`);
+      const assetPaths = await resSrc.json();
+      assetPaths.forEach(src => assetSrcs[assetType].push(src));
+    } catch (err) {
+      console.error(`${err.message}`);
+    }
+  });
 }
 
-// Extracts file paths from JSON source files, and loads them into sources object
-function fetchSources() {
-  fetch(srcsFilePath)
-    .then(response => response.json())
-    .then(srcs => fetchAssets(srcs))
-    .catch(err => console.log(`An error has occured: ${err}`));
-  return sources;
+// Retrieves asset file paths from src JSON files and loads them into assetSrcs
+async function extractAssetSrcs() {
+  try {
+    const srcs = await fetchSrcs();
+    await fetchAssets(srcs);
+  } catch (err) {
+    console.error(`Loading source paths failed`);
+  }
 }
 
 function loadImage(src) {
@@ -66,5 +80,7 @@ function getSources() {
 function getImages() {
   return Object.keys(images).length === 0 ? loadImages() : images;
 }
+
+await extractAssetSrcs();
 
 export { getSources, getImages };
