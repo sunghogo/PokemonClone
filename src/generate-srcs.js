@@ -6,7 +6,7 @@ const path = require('path');
 const inputDir = './assets';
 const assetDirs = [`${inputDir}/images`, `${inputDir}/audio`];
 const outputDir = './data';
-const srcFileSuffix = '-sources.json';
+const srcFileSuffix = '-srcs.json';
 
 // Declare directory and file name for main srcs file
 const srcs = [];
