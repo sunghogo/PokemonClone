@@ -3,7 +3,7 @@
 // Import modules
 import * as Parse from './parse.js';
 
-// Declare src paths and loaded asset objects
+// Declare src paths object and loaded asset objects
 const srcsFilePath = './data/srcs.json';
 const assetSrcs = { images: [], audio: [] };
 const assets = { images: [], audio: [] };
@@ -67,4 +67,5 @@ await loadAllAssetSrcs();
 await loadImages();
 console.log(`Loading Assets Finished`);
 
+// Export assets object containing loaded asset objects
 export default assets;
