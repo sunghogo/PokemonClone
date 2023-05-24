@@ -1,4 +1,9 @@
-import * as Assets from './assets.js';
+// This is the main game logic module
+
+// Import modules
+import assets from './assets.js';
+
+console.log(assets);
 
 // Classes
 class Sprite {
