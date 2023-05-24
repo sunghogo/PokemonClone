@@ -71,15 +71,6 @@ async function loadImages() {
   return images;
 }
 
-// Loads sources object if it is not properly initialized and returns it
-function getSources() {
-  return Object.keys(sources)
-    .map(type => sources[type].length === 0)
-    .reduce((acc, typeEmpty) => acc && !typeEmpty, true)
-    ? sources
-    : fetchSources();
-}
-
 // Loads images object if it is not properly initialized and returns it
 function getImages() {
   return Object.keys(images).length === 0 ? loadImages() : images;
