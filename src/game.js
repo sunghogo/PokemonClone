@@ -8,6 +8,7 @@ import Sprite from './sprite.js';
 import Boundary from './sprite.js';
 import { playerImage, player } from './player.js';
 import { bgImage, bgOffset, background } from './background.js';
+import { collisionsMap } from './collisions.js';
 
 // Functions
 function centerChar() {
@@ -59,7 +60,8 @@ function gameLoop() {
 
   // Draw images
   background.draw();
-  boundaries.forEach(boundary => boundary.draw());
+  // #FIXME
+  // boundaries.forEach(boundary => boundary.draw());
   player.draw();
 
   // Next frame
@@ -86,8 +88,6 @@ collisionsMap.forEach((row, column) => {
 // Set movables
 movables.push(background, ...boundaries);
 
-centerChar();
-centerMovables();
 gameLoop();
 
 // Event Handlers
