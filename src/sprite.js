@@ -25,7 +25,7 @@ class Sprite {
 }
 
 // Assets Initialization Message
-console.log(`Loading Sprite finished`);
+console.log(`Loading sprite finished`);
 
 // Export Sprite class
 export default Sprite;

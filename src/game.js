@@ -3,25 +3,11 @@
 // Import modules
 import assets from './assets.js';
 import keys from './keys.js';
-import { setCanvasSize, setCanvasColor, canvas, context } from './canvas.js';
+import { setCanvasSize, setCanvasColor, canvas } from './canvas.js';
 import Sprite from './sprite.js';
+import Boundary from './sprite.js';
 
 console.log(assets);
-
-class Boundary {
-  static width = 48;
-  static height = 48;
-  constructor({ position }) {
-    this.position = position;
-    this.width = 48;
-    this.height = 48;
-  }
-
-  draw() {
-    context.fillStyle = 'red';
-    context.fillRect(this.position.x, this.position.y, this.width, this.height);
-  }
-}
 
 // Functions
 function centerChar() {
