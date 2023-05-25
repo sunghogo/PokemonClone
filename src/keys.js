@@ -33,8 +33,8 @@ for (const event of ['keydown', 'keyup']) {
   });
 }
 
-// Load key event listeners within module execution
-console.log(`Loading Keys Finished`);
+// Keys Initialization Message
+console.log(`Loading keys finished`);
 
 // Export keys map containg key press states
 export default keys;

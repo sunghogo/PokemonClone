@@ -3,6 +3,7 @@
 // Import modules
 import assets from './assets.js';
 import keys from './keys.js';
+import { setCanvasSize, setCanvasColor, canvas, context } from './canvas.js';
 
 console.log(assets);
 
@@ -47,17 +48,6 @@ class Boundary {
 }
 
 // Functions
-function setCanvasSize() {
-  // Set canvas dimensions
-  canvas.width = window.innerWidth - 4;
-  canvas.height = window.innerHeight - 4;
-}
-
-function setCanvasColor() {
-  context.fillStyle = 'white';
-  context.fillRect(0, 0, canvas.width, canvas.height);
-}
-
 function centerChar() {
   const oldPosX = player.position.x;
   const oldPosY = player.position.y;
@@ -74,14 +64,6 @@ function centerMovables(resizeOffset) {
     movable.position.y += resizeOffset[1];
   });
 }
-
-// Canvas selector and context
-const canvas = document.querySelector('canvas');
-const context = canvas.getContext('2d');
-
-// Initialization
-setCanvasSize();
-setCanvasColor();
 
 // Declare html image objects
 const bgImage = new Image();

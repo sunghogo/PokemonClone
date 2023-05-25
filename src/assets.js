@@ -65,7 +65,9 @@ async function loadImages() {
 // Load assets within module execution
 await loadAllAssetSrcs();
 await loadImages();
-console.log(`Loading Assets Finished`);
+
+// Assets Initialization Message
+console.log(`Loading assets finished`);
 
 // Export assets object containing loaded asset objects
 export default assets;
