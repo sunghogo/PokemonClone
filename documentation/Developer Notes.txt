@@ -31,7 +31,7 @@ Tiled:
             - Make collision, foreground objects, etc. invisible
         - File -> Export As Image -> Only include visible layers & Current zoom level (to scale the image up)
         - File -> Export As -> JSON
-            - You can't select layers for this option, and need to extract the data from each layer separately
+            - This exports ALL the layers, and need to extract the data from each layer separately
         * REMOVE / SET HORIZONATAL AND VERTICAL OFFSET IN EACH LAYERS TO 0 OTHERWISE THE OFFSET WILL CARRY OVER INTO THE EXPORTED IMAGE/DATA
 
 HTML:
