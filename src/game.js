@@ -3,12 +3,11 @@
 // Import modules
 import assets from './assets.js';
 import keys from './keys.js';
-import { setCanvasSize, setCanvasColor, canvas } from './canvas.js';
+import { setCanvasSize, setCanvasColor, canvas, context } from './canvas.js';
 import Sprite from './sprite.js';
 import Boundary from './sprite.js';
 import { playerImage, player } from './player.js';
-
-console.log(assets);
+import { bgImage, bgOffset, background } from './background.js';
 
 // Functions
 function centerChar() {
@@ -27,15 +26,6 @@ function centerMovables(resizeOffset) {
     movable.position.y += resizeOffset[1];
   });
 }
-
-// Declare html image objects
-const bgImage = new Image();
-
-// Declare bgOffset
-let bgOffset;
-
-// Declare sprites
-let background;
 
 // Declare boundary
 const boundaries = [];
@@ -77,50 +67,28 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// Set .onload Event Handlers
-bgImage.onload = () => {
-  // Set bg offset
-  bgOffset = {
-    x: -bgImage.width / 2.86 - (49 - player.position.x),
-    y: -bgImage.height / 2.16 - (-36 - player.position.y),
-  };
-
-  // Set Collisions
-  collisionsMap.forEach((row, column) => {
-    row.forEach((e, i) => {
-      if (e === 1025)
-        boundaries.push(
-          new Boundary({
-            position: {
-              x: i * Boundary.width + bgOffset.x,
-              y: column * Boundary.height + bgOffset.y,
-            },
-          })
-        );
-    });
+// Start game
+// Set Collisions
+collisionsMap.forEach((row, column) => {
+  row.forEach((e, i) => {
+    if (e === 1025)
+      boundaries.push(
+        new Boundary({
+          position: {
+            x: i * Boundary.width + bgOffset.x,
+            y: column * Boundary.height + bgOffset.y,
+          },
+        })
+      );
   });
+});
 
-  // Initialize bg sprite
-  background = new Sprite({
-    // Find fixed point in bg image, and offset it by the player's centered positions
-    position: {
-      x: bgOffset.x,
-      y: bgOffset.y,
-    },
-    image: bgImage,
-  });
+// Set movables
+movables.push(background, ...boundaries);
 
-  // Set movables
-  movables.push(background, ...boundaries);
-
-  // Draw bg
-  background.draw();
-  // Draw player
-  player.draw();
-
-  // Start game loop after all images have loaded
-  gameLoop();
-};
+centerChar();
+centerMovables();
+gameLoop();
 
 // Event Handlers
 window.addEventListener('resize', function () {
