@@ -120,8 +120,8 @@ while (spawnData.length > 0) {
   spawnMap.push(spawnData.splice(0, mapWidth));
 }
 
-// Background Initialization message
-console.log('Loading collisions finished');
+// Spawn Initialization message
+console.log('Loading spawn finished');
 
 // Export spawn map
 export { spawnMap };

@@ -9,6 +9,7 @@ import Boundary from './sprite.js';
 import { playerImage, player } from './player.js';
 import { bgImage, bgOffset, background } from './background.js';
 import { collisionsMap } from './collisions.js';
+import { spawnMap } from './spawn.js';
 
 // Functions
 function centerChar() {
@@ -84,6 +85,8 @@ collisionsMap.forEach((row, column) => {
       );
   });
 });
+
+spawn = [];
 
 // Set movables
 movables.push(background, ...boundaries);
