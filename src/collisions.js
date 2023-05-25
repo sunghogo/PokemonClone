@@ -1,3 +1,5 @@
+// This module contains information regarding the collision objects
+
 // Map dimensionss in tiles
 const mapWidth = 70;
 const mapHeight = 40;
@@ -126,8 +128,8 @@ while (collisionsData.length > 0) {
   collisionsMap.push(collisionsData.splice(0, mapWidth));
 }
 
-// Background Initialization message
+// Collision Initialization message
 console.log('Loading collisions finished');
 
-// Export background image element, offset, and sprite object
+// Export collision map
 export { collisionsMap };
