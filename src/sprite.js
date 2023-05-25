@@ -1,5 +1,7 @@
 // This module contains the Sprite class that will be used to initialize all images into Sprite objects that can be located and rendered
 
+import { context } from './canvas.js';
+
 class Sprite {
   constructor({ position, velocity, image, crop, frames = { max: 1 } }) {
     this.position = position;
