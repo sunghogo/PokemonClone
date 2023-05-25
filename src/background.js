@@ -26,8 +26,8 @@ const background = new Sprite({
   image: bgImage,
 });
 
-// Player Initialization message
+// Background Initialization message
 console.log('Loading background finished');
 
-// Export player image element and sprite object
+// Export background image element, offset, and sprite object
 export { bgImage, bgOffset, background };
