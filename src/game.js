@@ -6,6 +6,7 @@ import keys from './keys.js';
 import { setCanvasSize, setCanvasColor, canvas } from './canvas.js';
 import Sprite from './sprite.js';
 import Boundary from './sprite.js';
+import { playerImage, player } from './player.js';
 
 console.log(assets);
 
@@ -29,14 +30,12 @@ function centerMovables(resizeOffset) {
 
 // Declare html image objects
 const bgImage = new Image();
-const playerImage = new Image();
 
 // Declare bgOffset
 let bgOffset;
 
 // Declare sprites
 let background;
-let player;
 
 // Declare boundary
 const boundaries = [];
@@ -44,7 +43,7 @@ const boundaries = [];
 // Declare moveable objects
 const movables = [];
 
-// Gameloop
+// Main game loop
 function gameLoop() {
   const repo = 6;
   // Update game state
@@ -121,21 +120,6 @@ bgImage.onload = () => {
 
   // Start game loop after all images have loaded
   gameLoop();
-};
-
-playerImage.onload = () => {
-  // Initialize player sprite
-  player = new Sprite({
-    position: {
-      x: canvas.width / 2 - playerImage.width / 8,
-      y: canvas.height / 2 - playerImage.height / 2,
-    },
-    image: playerImage,
-    frames: { max: 4 },
-  });
-
-  // Set src / Begin loading images
-  bgImage.src = './Assets/Images/Pellet Town Scaled.png';
 };
 
 // Event Handlers
