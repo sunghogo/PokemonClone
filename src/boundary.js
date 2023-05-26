@@ -21,4 +21,4 @@ class Boundary {
 console.log(`Loading boundary finished`);
 
 // Export boundary class
-export default Boundary;
+export { Boundary };

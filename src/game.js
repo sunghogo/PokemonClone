@@ -86,7 +86,35 @@ collisionsMap.forEach((row, column) => {
   });
 });
 
-spawn = [];
+// Set spawn
+const spawn = [];
+
+console.log(bgOffset.x);
+console.log(bgOffset.y);
+
+// #FIXME Boundary,width and Boundary.height not properly importing
+console.log(Boundary.width);
+console.log(Boundary.height);
+
+// #FIXME Find bgOffset coords by finding center of spawn coords
+// Set spawn
+spawnMap.forEach((row, column) => {
+  row.forEach((e, i) => {
+    if (e === 1026) {
+      console.log(i * Boundary.width, column * Boundary.height);
+      spawn.push(
+        new Boundary({
+          position: {
+            x: i * Boundary.width,
+            y: column * Boundary.height,
+          },
+        })
+      );
+    }
+  });
+});
+
+spawn.forEach(e => console.log(e.position));
 
 // Set movables
 movables.push(background, ...boundaries);
