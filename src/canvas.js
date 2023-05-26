@@ -16,12 +16,17 @@ function setCanvasColor() {
   context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// Initialize canvas within module execution
-setCanvasSize();
-setCanvasColor();
+// (Re)Initializes canvas
+function initCanvas() {
+  setCanvasSize();
+  setCanvasColor();
+}
+
+// Initializes canvas first time within module execution
+initCanvas();
 
 // Canvas Initialization Message
 console.log(`Loading canvas finished`);
 
 // Export canvas selector and context, and canvas init function
-export { setCanvasSize, setCanvasColor, canvas, context };
+export { initCanvas, canvas, context };

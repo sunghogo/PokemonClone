@@ -1,34 +1,15 @@
 // This is the main game logic module
 
 // Import modules
-import assets from './assets.js';
+import './assets.js';
 import keys from './keys.js';
-import { setCanvasSize, setCanvasColor, canvas, context } from './canvas.js';
-import Sprite from './sprite.js';
+import './canvas.js';
 import Boundary from './boundary.js';
-import { playerImage, player } from './player.js';
-import { bgImage, bgOffset, background } from './background.js';
+import { player } from './player.js';
+import { bgOffset, background } from './background.js';
 import { collisionsMap } from './collisions.js';
 import { spawnMap } from './spawn.js';
-
-// Functions
-function centerChar() {
-  const oldPosX = player.position.x;
-  const oldPosY = player.position.y;
-
-  player.position.x =
-    canvas.width / 2 - playerImage.width / (2 * player.frames.max);
-  player.position.y = canvas.height / 2 - playerImage.height / 2;
-
-  return [player.position.x - oldPosX, player.position.y - oldPosY];
-}
-
-function centerMovables(resizeOffset) {
-  movables.forEach(movable => {
-    movable.position.x += resizeOffset[0];
-    movable.position.y += resizeOffset[1];
-  });
-}
+import './resize.js';
 
 // Declare boundary
 const boundaries = [];
@@ -112,15 +93,3 @@ spawn.forEach(e => console.log(e.position));
 movables.push(background, ...boundaries);
 
 gameLoop();
-
-// Event Handlers
-window.addEventListener('resize', function () {
-  setCanvasSize();
-  setCanvasColor();
-
-  const resizeOffset = centerChar();
-  centerMovables(resizeOffset);
-
-  background.draw();
-  player.draw();
-});
