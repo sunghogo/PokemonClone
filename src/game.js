@@ -5,7 +5,7 @@ import assets from './assets.js';
 import keys from './keys.js';
 import { setCanvasSize, setCanvasColor, canvas, context } from './canvas.js';
 import Sprite from './sprite.js';
-import Boundary from './sprite.js';
+import Boundary from './boundary.js';
 import { playerImage, player } from './player.js';
 import { bgImage, bgOffset, background } from './background.js';
 import { collisionsMap } from './collisions.js';
