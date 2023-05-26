@@ -2,6 +2,7 @@
 
 import { context } from './canvas.js';
 
+// This class is used to represent the different object sprites and their coordinates
 class Boundary {
   // Dimensions of the tiles scaled to the enlarged tilemap
   static width = 48;
