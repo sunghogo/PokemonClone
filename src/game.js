@@ -16,7 +16,8 @@ function centerChar() {
   const oldPosX = player.position.x;
   const oldPosY = player.position.y;
 
-  player.position.x = canvas.width / 2 - playerImage.width / 8;
+  player.position.x =
+    canvas.width / 2 - playerImage.width / (2 * player.frames.max);
   player.position.y = canvas.height / 2 - playerImage.height / 2;
 
   return [player.position.x - oldPosX, player.position.y - oldPosY];
@@ -89,19 +90,11 @@ collisionsMap.forEach((row, column) => {
 // Set spawn
 const spawn = [];
 
-console.log(bgOffset.x);
-console.log(bgOffset.y);
-
-// #FIXME Boundary,width and Boundary.height not properly importing
-console.log(Boundary.width);
-console.log(Boundary.height);
-
 // #FIXME Find bgOffset coords by finding center of spawn coords
 // Set spawn
 spawnMap.forEach((row, column) => {
   row.forEach((e, i) => {
-    if (e === 1026) {
-      console.log(i * Boundary.width, column * Boundary.height);
+    if (e === 1026)
       spawn.push(
         new Boundary({
           position: {
@@ -110,7 +103,6 @@ spawnMap.forEach((row, column) => {
           },
         })
       );
-    }
   });
 });
 

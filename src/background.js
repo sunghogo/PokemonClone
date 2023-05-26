@@ -2,23 +2,24 @@
 
 import assets from './assets.js';
 import Sprite from './sprite.js';
-// import { canvas } from './canvas.js';
-import { player } from './player.js';
+import { canvas } from './canvas.js';
 
-// Declare and find player image object from assets
+// Declare and find background image object from assets
 const bgImage = assets.images.find(el =>
   el.src?.includes('pellet-town-scaled')
 );
 
-// Declare bgOffset
+const spawnX = 1248;
+const spawnY = 912;
+
+// Declare and calculate how much the backgorund is initially offset to render centered around the spawn location
 const bgOffset = {
-  x: -bgImage.width / 2.86 - (49 - player.position.x),
-  y: -bgImage.height / 2.16 - (-36 - player.position.y),
+  x: -spawnX + canvas.width / 2,
+  y: -spawnY + canvas.height / 2,
 };
 
 // Declare and intialize background sprite object
 const background = new Sprite({
-  // Find fixed point in bg image, and offset it by the player's centered positions
   position: {
     x: bgOffset.x,
     y: bgOffset.y,
