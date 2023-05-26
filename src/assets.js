@@ -50,9 +50,14 @@ async function loadImages() {
   }
 }
 
+// Initializes and loads all assets
+async function initAssets() {
+  await loadAllAssetSrcs();
+  await loadImages();
+}
+
 // Load assets within module execution
-await loadAllAssetSrcs();
-await loadImages();
+await initAssets();
 
 // Assets Initialization Message
 console.log(`Loading assets finished`);
