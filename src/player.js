@@ -17,6 +17,7 @@ function initPlayer() {
     },
     image: playerImage,
     frames: { max: 4 },
+    velocity: 6,
   });
   console.log('Loading player finished');
 }

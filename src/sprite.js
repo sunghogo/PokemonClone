@@ -3,11 +3,12 @@
 import { context } from './canvas.js';
 
 class Sprite {
-  constructor({ position, velocity, image, crop, frames = { max: 1 } }) {
+  constructor({ position, velocity = 0, image, crop, frames = { max: 1 } }) {
     this.position = position;
     this.image = image;
     this.crop = crop;
     this.frames = frames;
+    this.velocity = velocity;
   }
 
   draw() {

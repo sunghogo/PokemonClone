@@ -28,7 +28,7 @@ async function initData() {
     spawnMap.push(spawnData.splice(0, mapWidth));
   }
 
-  console.log('Loading objects finished');
+  console.log('Loading data finished');
 }
 
 export { spawnMap, collisionsMap, initData };
