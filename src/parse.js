@@ -10,5 +10,4 @@ function parseImageName(src) {
   return src.split('/').slice(-1)[0];
 }
 
-// Export parsing functions
 export { parseAssetType, parseImageName };

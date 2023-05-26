@@ -1,8 +1,7 @@
-// This module contains the Boundary class that will be used to initialize and render all collision objects
+// This module contains the Boundary class that will be used to initialize and render all objects other than the player and bg
 
 import { context } from './canvas.js';
 
-// This class is used to represent the different object sprites and their coordinates
 class Boundary {
   // Dimensions of the tiles scaled to the enlarged tilemap
   static width = 48;
@@ -19,8 +18,4 @@ class Boundary {
   }
 }
 
-// Assets Initialization Message
-console.log(`Loading boundary finished`);
-
-// Export boundary class
 export default Boundary;

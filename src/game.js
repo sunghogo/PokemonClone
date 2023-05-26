@@ -1,15 +1,16 @@
 // This is the main game logic module
 
 // Import modules
-import './assets.js';
-import keys from './keys.js';
-import './canvas.js';
+import init from './init.js';
+import { keys } from './keys.js';
 import Boundary from './boundary.js';
 import { player } from './player.js';
 import { bgOffset, background } from './background.js';
 import { collisionsMap } from './collisions.js';
 import { spawnMap } from './spawn.js';
 import './resize.js';
+
+await init();
 
 // Declare boundary
 const boundaries = [];

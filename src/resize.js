@@ -23,20 +23,20 @@ function centerMovables(resizeOffset) {
   });
 }
 
-// Event Handler to properly recalculate sprite positions after
-window.addEventListener('resize', function () {
-  // Canvas element information is reset after a resizing so have to reinitialize canvas
-  initCanvas();
+// Initializes window resize event handler
+function initResize() {
+  window.addEventListener('resize', function () {
+    // Canvas element information is reset after a resizing so have to reinitialize canvas
+    initCanvas();
 
-  const resizeOffset = centerChar();
-  centerMovables(resizeOffset);
+    const resizeOffset = centerChar();
+    centerMovables(resizeOffset);
 
-  background.draw();
-  player.draw();
-});
+    background.draw();
+    player.draw();
 
-// Resize Initialization Message
-console.log(`Loading resize finished`);
+    console.log(`Loading resize finished`);
+  });
+}
 
-// Export nothing / only execute this module
-export default '';
+export default initResize;
