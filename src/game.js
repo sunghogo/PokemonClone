@@ -5,17 +5,14 @@ import { keys } from './keys.js';
 import { player } from './player.js';
 import { bgOffset, background } from './background.js';
 import { collisions } from './collisions.js';
+import { movables } from './movable-objects.js';
 
 // Initialize the game state
 await init();
 
-// Declare moveable objects
-const movables = [];
-
-// Main game loop
+// Main game loop to update game state
 function gameLoop() {
   const repo = 6;
-  // Update game state
   // Move objects
   keys.forEach((value, key, map) => {
     if (value && key === 'up')
@@ -46,7 +43,5 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// Set movables #FIXME
-// movables.push(background, ...boundaries);
-
+// Start game
 gameLoop();
