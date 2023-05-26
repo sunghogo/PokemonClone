@@ -1,21 +1,25 @@
 // This module initializes all the other modules the first time
 import { initAssets } from './assets.js';
+import { initData } from './data.js';
 import { initKeys } from './keys.js';
 import { initCanvas } from './canvas.js';
 import { initPlayer } from './player.js';
 import { initBG } from './background.js';
-import { collisionsMap } from './collisions.js';
-import { spawnMap } from './spawn.js';
+import { initCollisions } from './collisions.js';
+import { initSpawn } from './spawn.js';
 import initResize from './resize.js';
 
-// Load assets within module execution
+// Initializes the game state ... ORDER MATTERS
 async function init() {
   initCanvas();
-  initKeys();
   await initAssets();
+  await initData();
   initPlayer();
   initBG();
+  initCollisions();
+  initSpawn();
   initResize();
+  initKeys();
   console.log(`Initialization Complete!`);
 }
 
