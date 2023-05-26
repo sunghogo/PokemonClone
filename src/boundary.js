@@ -3,6 +3,7 @@
 import { context } from './canvas.js';
 
 class Boundary {
+  // Dimensions of the tiles scaled to the enlarged tilemap
   static width = 48;
   static height = 48;
   constructor({ position }) {
