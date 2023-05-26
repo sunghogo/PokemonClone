@@ -2,7 +2,7 @@
 
 import init from './init.js';
 import { player } from './player.js';
-import { bgOffset, background } from './background.js';
+import { background } from './background.js';
 import { collisions } from './collisions.js';
 import { checkMovement } from './movement.js';
 

@@ -23,4 +23,9 @@ function initCanvas() {
   console.log(`Loading canvas finished`);
 }
 
-export { initCanvas, canvas, context };
+function reloadCanvas() {
+  setCanvasSize();
+  setCanvasColor();
+}
+
+export { canvas, context, initCanvas, reloadCanvas };

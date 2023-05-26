@@ -1,7 +1,9 @@
 // This module handles the repositioning the sprites after resuzubg the window
 
-import { canvas, initCanvas } from './canvas.js';
+import { canvas, reloadCanvas } from './canvas.js';
 import { player } from './player.js';
+import { background } from './background.js';
+import { movables } from './movable-objects.js';
 
 // Recalculates the player sprite's new centered position, and returns the offset from its old centered position
 function centerChar() {
@@ -9,8 +11,8 @@ function centerChar() {
   const oldPosY = player.position.y;
 
   player.position.x =
-    canvas.width / 2 - playerImage.width / (2 * player.frames.max);
-  player.position.y = canvas.height / 2 - playerImage.height / 2;
+    canvas.width / 2 - player.image.width / (2 * player.frames.max);
+  player.position.y = canvas.height / 2 - player.image.height / 2;
 
   return [player.position.x - oldPosX, player.position.y - oldPosY];
 }
@@ -26,17 +28,16 @@ function centerMovables(resizeOffset) {
 // Initializes window resize event handler
 function initResize() {
   window.addEventListener('resize', function () {
-    // Canvas element information is reset after a resizing so have to reinitialize canvas
-    initCanvas();
+    // Canvas element is reset after a resizing so have to reinitialize canvas
+    reloadCanvas();
 
     const resizeOffset = centerChar();
     centerMovables(resizeOffset);
 
     background.draw();
     player.draw();
-
-    console.log(`Loading resize finished`);
   });
+  console.log(`Loading resize finished`);
 }
 
 export default initResize;
