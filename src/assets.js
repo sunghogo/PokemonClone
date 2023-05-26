@@ -2,23 +2,11 @@
 
 // Import modules
 import * as Parse from './parse.js';
+import { srcsFilePath, fetchSrc } from './fetch.js';
 
-// Declare src paths object and loaded asset objects
-const srcsFilePath = './data/srcs.json';
+// Declare asset src paths object and loaded assets object
 const assetSrcs = { images: [], audio: [] };
 const assets = { images: [], audio: [] };
-
-// Extracts data/src paths stored in src.json files
-async function fetchSrc(src) {
-  try {
-    const res = await fetch(src);
-    if (!res.ok) throw new Error(`Failed loading ${src} file`);
-    const data = await res.json();
-    return data;
-  } catch (err) {
-    console.error(`${err.message}`);
-  }
-}
 
 // Retrieves asset src paths and loads them into assetSrcs object
 async function loadAssetSrc(src) {
