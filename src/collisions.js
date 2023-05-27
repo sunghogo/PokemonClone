@@ -1,7 +1,7 @@
 // This modules initializes collision boundary objects
 
 import { collisionsMap } from './data.js';
-import { bgOffset } from './background.js';
+import { background } from './background.js';
 import Boundary from './boundary.js';
 import { player } from './player.js';
 
@@ -17,8 +17,8 @@ function initCollisions() {
           new Boundary({
             // Needs bgOffset to be rendered properly
             position: {
-              x: i * Boundary.width + bgOffset.x,
-              y: column * Boundary.height + bgOffset.y,
+              x: i * Boundary.width + background.bgOffset.x,
+              y: column * Boundary.height + background.bgOffset.y,
             },
           })
         );
