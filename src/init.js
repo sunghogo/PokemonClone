@@ -6,6 +6,7 @@ import { initKeys } from './keys.js';
 import { initCanvas } from './canvas.js';
 import { initPlayer } from './player.js';
 import { initBG } from './background.js';
+import { initFG } from './foreground.js';
 import { initCollisions } from './collisions.js';
 import { initSpawn } from './spawn.js';
 import { initMovables } from './movable-objects.js';
@@ -18,6 +19,7 @@ async function init() {
   await initData();
   initPlayer();
   initBG();
+  initFG();
   initCollisions();
   initSpawn();
   initMovables();

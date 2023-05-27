@@ -5,6 +5,7 @@ import { player } from './player.js';
 import { background } from './background.js';
 import { collisions } from './collisions.js';
 import { checkMovement } from './movement.js';
+import { foreground } from './foreground.js';
 
 // Initialize the game state
 await init();
@@ -18,6 +19,7 @@ function gameLoop() {
   background.draw();
   collisions.forEach(boundary => boundary.draw());
   player.draw();
+  foreground.draw();
 
   // Next frame
   // console.log('Tick');

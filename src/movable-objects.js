@@ -3,13 +3,14 @@
 import { spawn } from './spawn.js';
 import { collisions } from './collisions.js';
 import { background } from './background.js';
+import { foreground } from './foreground.js';
 
 // Declare moveable objects array
 const movables = [];
 
 // Initializez movable objects array
 function initMovables() {
-  movables.push(background, ...collisions);
+  movables.push(background, foreground, ...collisions);
 }
 
 export { movables, initMovables };

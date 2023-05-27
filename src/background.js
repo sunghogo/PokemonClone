@@ -7,8 +7,11 @@ import { canvas } from './canvas.js';
 const spawnX = 1248;
 const spawnY = 912;
 
-// Declare how much the backgorund is initially offset to render centered around the spawn location
-const bgOffset = {};
+// Declare and calculate how much the background is initially offset to render bg and fg centered around the spawn location
+const bgOffset = {
+  x: -spawnX + canvas.width / 2,
+  y: -spawnY + canvas.height / 2,
+};
 
 // Declare and intialize background sprite object
 let background;
@@ -18,10 +21,6 @@ function initBG() {
   const bgImage = assets.images.find(el =>
     el.src?.includes('pellet-town-scaled')
   );
-
-  bgOffset.x = -spawnX + canvas.width / 2;
-  bgOffset.y = -spawnY + canvas.height / 2;
-
   background = new Sprite({
     position: {
       x: bgOffset.x,
