@@ -9,17 +9,32 @@ let player;
 
 // Initializes player sprite object
 function initPlayer() {
-  const playerImage = assets.images.find(el => el.src?.includes('player-down'));
+  const playerImageDown = assets.images.find(el =>
+    el.src?.includes('player-down')
+  );
+  const playerImageUp = assets.images.find(el => el.src?.includes('player-up'));
+  const playerImageLeft = assets.images.find(el =>
+    el.src?.includes('player-left')
+  );
+  const playerImageRight = assets.images.find(el =>
+    el.src?.includes('player-right')
+  );
+
   player = new Sprite({
     position: {
-      x: canvas.width / 2 - playerImage.width / 8,
-      y: canvas.height / 2 - playerImage.height / 2,
+      x: canvas.width / 2 - playerImageDown.width / 8,
+      y: canvas.height / 2 - playerImageDown.height / 2,
     },
-    image: playerImage,
+    image: playerImageDown,
+    velocity: 4,
     frames: { max: 4 },
-    velocity: 6,
+    sprites: {
+      up: playerImageUp,
+      down: playerImageDown,
+      left: playerImageLeft,
+      right: playerImageRight,
+    },
   });
-  console.log('Loading player finished');
 }
 
 export { initPlayer, player };
