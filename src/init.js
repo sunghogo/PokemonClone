@@ -17,11 +17,11 @@ async function init() {
   initCanvas();
   await initAssets();
   await initData();
+  initSpawn();
   initPlayer();
   initBG();
   initFG();
   initCollisions();
-  initSpawn();
   initMovables();
   initResize();
   initKeys();
