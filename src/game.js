@@ -20,7 +20,7 @@ function gameLoop() {
   player.draw();
 
   // Next frame
-  console.log('Tick');
+  // console.log('Tick');
   requestAnimationFrame(gameLoop);
 }
 

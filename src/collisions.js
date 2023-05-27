@@ -3,6 +3,7 @@
 import { collisionsMap } from './data.js';
 import { bgOffset } from './background.js';
 import Boundary from './boundary.js';
+import { player } from './player.js';
 
 // Declare collisions array containing all the collisions boundary objects
 const collisions = [];
@@ -26,4 +27,35 @@ function initCollisions() {
   console.log('Loading collisions finished');
 }
 
-export { collisions, initCollisions };
+// Calculates collision and returns true if colliding
+function rectangularCollision({ rectangle1, rectangle2 }) {
+  return (
+    rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
+    rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+    rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
+    rectangle1.position.y + rectangle1.height >= rectangle2.position.y
+  );
+}
+
+// Calculates collision in advance for checkMovement(), and returns true if colliding
+function detectCollision({ offsetX = 0, offsetY = 0 }) {
+  for (let i = 0; i < collisions.length; i++) {
+    const boundary = collisions[i];
+    if (
+      rectangularCollision({
+        rectangle1: player,
+        rectangle2: {
+          ...boundary,
+          position: {
+            x: boundary.position.x + offsetX,
+            y: boundary.position.y + offsetY,
+          },
+        },
+      })
+    )
+      return true;
+  }
+  return false;
+}
+
+export { collisions, initCollisions, detectCollision };
