@@ -9,6 +9,7 @@ const mapHeight = 40;
 // Declare arrays that map each corresponding boundary object
 const collisionsMap = [];
 const spawnMap = [];
+const battleMap = [];
 
 // Initialize object map arrays
 async function initData() {
@@ -20,6 +21,9 @@ async function initData() {
   const spawnData = tilemapData.layers.find(
     layer => layer.name === 'Spawn'
   )?.data;
+  const battleData = tilemapData.layers.find(
+    layer => layer.name === 'Battle Zones'
+  )?.data;
 
   while (collisionsData.length > 0) {
     collisionsMap.push(collisionsData.splice(0, mapWidth));
@@ -27,8 +31,11 @@ async function initData() {
   while (spawnData.length > 0) {
     spawnMap.push(spawnData.splice(0, mapWidth));
   }
+  while (battleData.length > 0) {
+    battleMap.push(battleData.splice(0, mapWidth));
+  }
 
   console.log('Loading data finished');
 }
 
-export { spawnMap, collisionsMap, initData };
+export { spawnMap, collisionsMap, battleMap, initData };
