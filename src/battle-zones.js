@@ -3,6 +3,8 @@
 import { battleMap } from './data.js';
 import Boundary from './boundary.js';
 import { background } from './background.js';
+import { player } from './player.js';
+import { detectCollision } from './collisions.js';
 
 // Declare spawm array containing all the spawn boundary objects
 const battleZones = [];
@@ -26,4 +28,19 @@ function initBattleZones() {
   console.log('Loading battle zones finished');
 }
 
-export { battleZones, initBattleZones };
+// Detects if player is currently inside a battle zone
+function detectBattleZoneCollision({
+  boundaries: battleZones,
+  character: player,
+}) {
+  if (
+    detectCollision({
+      boundaries: battleZones,
+      character: player,
+    })
+  )
+    return true;
+  return false;
+}
+
+export { battleZones, initBattleZones, detectBattleZoneCollision };
