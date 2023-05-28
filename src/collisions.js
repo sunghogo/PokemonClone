@@ -38,7 +38,7 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
 }
 
 // Calculates collision in advance for checkMovement(), and returns true if colliding
-function detectCollision({ offsetX = 0, offsetY = 0, boundaries, character }) {
+function detectCollision({ offsetX = 0, offsetY = 0, character, boundaries }) {
   for (let i = 0; i < boundaries.length; i++) {
     const boundary = boundaries[i];
     if (
