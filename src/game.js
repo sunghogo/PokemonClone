@@ -6,6 +6,7 @@ import { background } from './background.js';
 import { collisions } from './collisions.js';
 import { checkMovement } from './movement.js';
 import { foreground } from './foreground.js';
+import { battleZones } from './battle-zones.js';
 
 // Initialize the game state
 await init();
@@ -18,6 +19,7 @@ function gameLoop() {
   // Redraw images
   background.draw();
   collisions.forEach(boundary => boundary.draw());
+  battleZones.forEach(boundary => boundary.draw(true));
   player.draw();
   foreground.draw();
 

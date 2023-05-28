@@ -8,6 +8,7 @@ import { initPlayer } from './player.js';
 import { initBG } from './background.js';
 import { initFG } from './foreground.js';
 import { initCollisions } from './collisions.js';
+import { initBattleZones } from './battle-zones.js';
 import { initSpawn } from './spawn.js';
 import { initMovables } from './movable-objects.js';
 import initResize from './resize.js';
@@ -22,6 +23,7 @@ async function init() {
   initBG();
   initFG();
   initCollisions();
+  initBattleZones();
   initMovables();
   initResize();
   initKeys();
