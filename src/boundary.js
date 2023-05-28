@@ -12,8 +12,10 @@ class Boundary {
     this.height = 48;
   }
 
-  draw() {
-    context.fillStyle = 'rgba(255, 0, 0, 0.0)';
+  draw(highlight = false) {
+    context.fillStyle = highlight
+      ? 'rgba(255, 0, 0, 0.5)'
+      : 'rgba(255, 0, 0, 0.0)';
     context.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
