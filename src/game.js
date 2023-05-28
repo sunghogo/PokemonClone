@@ -8,13 +8,10 @@ import { checkMovement } from './movement.js';
 import { foreground } from './foreground.js';
 import { battleZones } from './battle-zones.js';
 
-// Initialize the game state
-await init();
-
 // Main game loop to update game state
 function gameLoop() {
   // Check for movement key presses and moves the player
-  checkMovement();
+  checkMovement({ character: player, boundaries: collisions });
 
   // Redraw images
   background.draw();
@@ -27,6 +24,9 @@ function gameLoop() {
   // console.log('Tick');
   requestAnimationFrame(gameLoop);
 }
+
+// Initialize the game state
+await init();
 
 // Start game
 gameLoop();
