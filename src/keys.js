@@ -12,23 +12,23 @@ const keys = new Map([
 function initKeys() {
   for (const event of ['keydown', 'keyup']) {
     window.addEventListener(event, e => {
-      const state = event === 'keydown' ? true : false;
+      const pressedState = event === 'keydown' ? true : false;
       switch (e.key) {
         case 'w':
         case 'ArrowUp':
-          keys.set('up', state);
+          keys.set('up', pressedState);
           break;
         case 's':
         case 'ArrowDown':
-          keys.set('down', state);
+          keys.set('down', pressedState);
           break;
         case 'd':
         case 'ArrowRight':
-          keys.set('right', state);
+          keys.set('right', pressedState);
           break;
         case 'a':
         case 'ArrowLeft':
-          keys.set('left', state);
+          keys.set('left', pressedState);
           break;
       }
     });
