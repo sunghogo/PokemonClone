@@ -6,7 +6,7 @@ import { detectCollision } from './collisions.js';
 
 function checkMovement({ character, boundaries }) {
   character.moving = false;
-  keys.forEach((value, key, map) => {
+  keys.forEach((value, key) => {
     if (value && key === 'up') {
       character.moving = true;
       character.image = character.sprites.up;
