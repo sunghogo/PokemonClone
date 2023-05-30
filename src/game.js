@@ -12,9 +12,6 @@ import { battleZones, detectBattleZoneCollision } from './battle-zones.js';
 function gameLoop() {
   // Check for movement key presses and moves the player
   checkMovement({ character: player, boundaries: collisions });
-  detectBattleZoneCollision({ boundaries: battleZones, character: player })
-    ? console.log('battle')
-    : '';
 
   // Redraw images
   background.draw();
@@ -23,8 +20,11 @@ function gameLoop() {
   player.draw();
   foreground.draw();
 
+  detectBattleZoneCollision({ character: player, boundaries: battleZones })
+    ? console.log('battle')
+    : '';
+
   // Next frame
-  // console.log('Tick');
   requestAnimationFrame(gameLoop);
 }
 
