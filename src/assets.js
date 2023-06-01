@@ -4,7 +4,7 @@
 import * as Parse from './parse.js';
 import { srcsFilePath, fetchSrc } from './fetch.js';
 
-// Declare asset src paths object and loaded assets object
+// Declare loaded assets object with asset srcs and objects
 const assets = {
   images: { srcs: [], objects: [] },
   audio: { srcs: [], objects: [] },
@@ -36,8 +36,21 @@ function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     const imgName = Parse.parseImageName(src);
-    img.addEventListener('load', _ => resolve(img));
-    img.addEventListener('error', _ => reject(`${imgName} failed to load`));
+
+    // Declare and initialize event handler functions to remove evnet listeners after use
+    function handleLoad() {
+      resolve(img);
+      img.removeEventListener('load', handleLoad);
+      img.removeEventListener('error', handleError);
+    }
+    function handleError() {
+      reject(`${imgName} failed to load`);
+      img.removeEventListener('load', handleLoad);
+      img.removeEventListener('error', handleError);
+    }
+
+    img.addEventListener('load', handleLoad);
+    img.addEventListener('error', handleError);
     img.src = src; // Begins loading image
   });
 }
