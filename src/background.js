@@ -1,6 +1,6 @@
 // This module contains all the logic regarding the background
 
-import { assets } from './assets.js';
+import { findImage } from './assets.js';
 import Sprite from './sprite.js';
 import { canvas } from './canvas.js';
 import { spawn } from './spawn.js';
@@ -10,9 +10,7 @@ let background;
 
 // Calculate and initialize bgOffset and background sprite object
 function initBG() {
-  const bgImage = assets.images.find(el =>
-    el.src?.includes('pellet-town-scaled')
-  );
+  const bgImage = findImage('pellet-town-scaled');
 
   // Declare and calculate how much the background is initially offset to render bg and fg centered around the spawn location
   const bgOffset = {
