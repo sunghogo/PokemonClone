@@ -1,6 +1,6 @@
 // This module contains all the logic regarding the player character
 
-import { assets, findImage } from './assets.js';
+import { findAllImages } from './assets.js';
 import Sprite from './sprite.js';
 import { canvas } from './canvas.js';
 
@@ -8,11 +8,9 @@ import { canvas } from './canvas.js';
 let player;
 
 // Initializes player sprite object
-async function initPlayer() {
-  const [playerImageDown, playerImageUp, playerImageLeft, playerImageRight] =
-    await Promise.all(
-      assets.images.srcs.filter(src => src.includes('player')).map(findImage)
-    );
+function initPlayer() {
+  const [playerImageDown, playerImageLeft, playerImageRight, playerImageUp] =
+    findAllImages('player');
 
   player = new Sprite({
     position: {
@@ -29,6 +27,7 @@ async function initPlayer() {
       right: playerImageRight,
     },
   });
+  console.log(`Loading player finished`);
 }
 
 export { initPlayer, player };
