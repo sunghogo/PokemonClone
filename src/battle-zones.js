@@ -1,9 +1,8 @@
 // This modules initializes the battle zone boundary objects
 
-import { battleMap } from './data.js';
 import Boundary from './boundary.js';
+import { battleMap } from './data.js';
 import { background } from './background.js';
-import { player } from './player.js';
 import { detectCollision } from './collisions.js';
 
 // Declare spawm array containing all the spawn boundary objects

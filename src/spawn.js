@@ -1,7 +1,7 @@
 // This modules initializes the spawn boundary objects
 
-import { spawnMap } from './data.js';
 import Boundary from './boundary.js';
+import { spawnMap } from './data.js';
 
 // Declare spawm array containing all the spawn boundary objects
 const spawn = { spawns: [], position: { x: 0, y: 0 } };
@@ -35,7 +35,6 @@ function initSpawn() {
         );
     });
   });
-
   calcSpawnPos();
   console.log('Loading spawn finished');
 }

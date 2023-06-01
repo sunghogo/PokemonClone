@@ -1,9 +1,8 @@
 // This modules initializes collision boundary objects
 
+import Boundary from './boundary.js';
 import { collisionsMap } from './data.js';
 import { background } from './background.js';
-import Boundary from './boundary.js';
-import { player } from './player.js';
 
 // Declare collisions array containing all the collisions boundary objects
 const collisions = [];
