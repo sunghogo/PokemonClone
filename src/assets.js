@@ -5,21 +5,23 @@ import * as Parse from './parse.js';
 import { srcsFilePath, fetchSrc } from './fetch.js';
 
 // Declare asset src paths object and loaded assets object
-const assetSrcs = { images: [], audio: [] };
-const assets = { images: [], audio: [] };
+const assets = {
+  images: { srcs: [], objects: [] },
+  audio: { srcs: [], objects: [] },
+};
 
-// Retrieves asset src paths and loads them into assetSrcs object
+// Retrieves asset src paths and loads them into asset.srcs object
 async function loadAssetSrc(src) {
   try {
     const assetType = Parse.parseAssetType(src);
     const assetPaths = await fetchSrc(src);
-    for (const path of assetPaths) assetSrcs[assetType].push(path);
+    for (const path of assetPaths) assets[assetType].srcs.push(path);
   } catch (err) {
     console.error(`${err.message}`);
   }
 }
 
-// Loads all assets srcs into assetSrcs object
+// Loads all assets srcs into asset.srcs object
 async function loadAllAssetSrcs() {
   try {
     const srcs = await fetchSrc(srcsFilePath);
@@ -43,8 +45,10 @@ function loadImage(src) {
 // Extracts file paths from sources.images
 async function loadImages() {
   try {
-    const imgs = await Promise.all(assetSrcs.images.map(src => loadImage(src)));
-    assets.images = [...imgs];
+    const imgs = await Promise.all(
+      assets.images.srcs.map(src => loadImage(src))
+    );
+    assets.images.objects = [...imgs];
   } catch (err) {
     console.error(`${err.message}`);
   }
