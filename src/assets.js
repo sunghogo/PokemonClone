@@ -31,19 +31,19 @@ async function loadAllAssetSrcs() {
   }
 }
 
-// Loads images and returns the created img object
+// Promisfies loading images and returns the created img object (img.onload and img.onerror does NOT synchronize with AJAX even with promisfying)
 function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
     const imgName = Parse.parseImageName(src);
-    img.onload = resolve(img);
-    img.onerror = reject(`${imgName} failed to load`);
+    img.addEventListener('load', _ => resolve(img));
+    img.addEventListener('error', _ => reject(`${imgName} failed to load`));
     img.src = src; // Begins loading image
   });
 }
 
 // Extracts file paths from sources.images
-async function loadImages() {
+async function loadAllImages() {
   try {
     const imgs = await Promise.all(
       assets.images.srcs.map(src => loadImage(src))
@@ -57,17 +57,23 @@ async function loadImages() {
 // Initializes and loads all assets
 async function initAssets() {
   await loadAllAssetSrcs();
-  await loadImages();
+  await loadAllImages();
   console.log(`Loading assets finished`);
 }
 
-// Promisfying callback .find() method to find image from assets object in other modules to be synchronous with rest of AJAX initialization
+// Retrieves first image objects with the specified keyword or logs error
 function findImage(src) {
-  return new Promise((resolve, reject) => {
-    const image = assets.images.objects.find(el => el.src?.includes(src));
-    image ? resolve(parseImageName(image)) : reject(image);
-  });
+  const image = assets.images.objects.find(img => img.src.includes(src));
+  return image ? image : console.error(`Failed to find image ${src}`);
+}
+
+// Retrieves all image objects with the specified keyword or logs error
+function findAllImages(srcKeyword) {
+  const imgs = assets.images.objects.filter(img =>
+    img.src.includes(srcKeyword)
+  );
+  return imgs ? imgs : console.error(`Failed to find image ${srcKeyword}`);
 }
 
 // Export assets object containing loaded asset objects
-export { initAssets, findImage, assets };
+export { initAssets, findImage, findAllImages, assets };
