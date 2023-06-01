@@ -36,6 +36,22 @@ function rectangularCollision({ rectangle1, rectangle2 }) {
   );
 }
 
+// Calculates collision overlap between two rectangular objects
+function rectangularCollisionOverlap({ rectangle1, rectangle2 }) {
+  const collisionWidth =
+    Math.min(
+      rectangle1.position.x + rectangle1.width,
+      rectangle2.position.x + rectangle2.width
+    ) - Math.max(rectangle1.position.x, rectangle2.position.x);
+  const collisionHeight =
+    Math.min(
+      rectangle1.position.y + rectangle1.height,
+      rectangle2.position.y + rectangle2.height
+    ) - Math.max(rectangle1.position.y, rectangle2.position.y);
+  const collisionArea = collisionWidth * collisionHeight;
+  return collisionArea;
+}
+
 // Calculates collision in advance for checkMovement(), and returns true if colliding
 function detectCollision({ character, boundaries, offsetX = 0, offsetY = 0 }) {
   for (let i = 0; i < boundaries.length; i++) {
@@ -52,9 +68,14 @@ function detectCollision({ character, boundaries, offsetX = 0, offsetY = 0 }) {
         },
       })
     )
-      return true;
+      return boundary;
   }
   return false;
 }
 
-export { collisions, initCollisions, detectCollision };
+export {
+  collisions,
+  initCollisions,
+  detectCollision,
+  rectangularCollisionOverlap,
+};
