@@ -15,15 +15,15 @@ const battleMap = [];
 async function initData() {
   const tilemapData = await fetchSrc(tilemapFilePath);
 
-  const collisionsData = tilemapData.layers.find(
-    layer => layer.name === 'Collisions'
-  )?.data;
-  const spawnData = tilemapData.layers.find(
-    layer => layer.name === 'Spawn'
-  )?.data;
-  const battleData = tilemapData.layers.find(
-    layer => layer.name === 'Battle Zones'
-  )?.data;
+  const collisionsData = tilemapData.layers
+    .find(layer => layer.name === 'Collisions')
+    ?.data.slice();
+  const spawnData = tilemapData.layers
+    .find(layer => layer.name === 'Spawn')
+    ?.data.slice();
+  const battleData = tilemapData.layers
+    .find(layer => layer.name === 'Battle Zones')
+    ?.data.slice();
 
   while (collisionsData.length > 0) {
     collisionsMap.push(collisionsData.splice(0, mapWidth));
