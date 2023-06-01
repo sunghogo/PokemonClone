@@ -1,7 +1,7 @@
 // This module fetches, loads, stores, and returns asset files
 
 // Import modules
-import * as Parse from './parse.js';
+import { parseAssetType, parseImageName } from './parse.js';
 import { srcsFilePath, fetchSrc } from './fetch.js';
 
 // Declare loaded assets object with asset srcs and objects
@@ -13,7 +13,7 @@ const assets = {
 // Retrieves asset src paths and loads them into asset.srcs object
 async function loadAssetSrc(src) {
   try {
-    const assetType = Parse.parseAssetType(src);
+    const assetType = parseAssetType(src);
     const assetPaths = await fetchSrc(src);
     for (const path of assetPaths) assets[assetType].srcs.push(path);
   } catch (err) {
@@ -35,7 +35,7 @@ async function loadAllAssetSrcs() {
 function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    const imgName = Parse.parseImageName(src);
+    const imgName = parseImageName(src);
 
     // Declare and initialize event handler functions to remove evnet listeners after use
     function handleLoad() {
@@ -89,4 +89,4 @@ function findAllImages(srcKeyword) {
 }
 
 // Export assets object containing loaded asset objects
-export { initAssets, findImage, findAllImages, assets };
+export { initAssets, findImage, findAllImages };
