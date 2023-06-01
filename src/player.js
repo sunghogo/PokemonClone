@@ -3,22 +3,28 @@
 import { assets } from './assets.js';
 import Sprite from './sprite.js';
 import { canvas } from './canvas.js';
+import { parseImageName } from './parse.js';
 
 // Declare player sprite object
 let player;
 
+// Promisfying callback .find() method to find player image from assets object to be synchronous with rest of AJAX initialization
+function findPlayerImage(src) {
+  return new Promise((resolve, reject) => {
+    const image = assets.images.objects.find(el => el.src?.includes(src));
+    image ? resolve(image) : reject(image);
+  });
+}
+
 // Initializes player sprite object
-function initPlayer() {
-  const playerImageDown = assets.images.find(el =>
-    el.src?.includes('player-down')
-  );
-  const playerImageUp = assets.images.find(el => el.src?.includes('player-up'));
-  const playerImageLeft = assets.images.find(el =>
-    el.src?.includes('player-left')
-  );
-  const playerImageRight = assets.images.find(el =>
-    el.src?.includes('player-right')
-  );
+async function initPlayer() {
+  const [playerImageDown, playerImageUp, playerImageLeft, playerImageRight] =
+    await Promise.all(
+      assets.images.srcs
+        .filter(src => src.includes('player'))
+        .map(parseImageName)
+        .map(findPlayerImage)
+    );
 
   player = new Sprite({
     position: {
