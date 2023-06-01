@@ -10,7 +10,6 @@ import { battleZones, detectBattleZoneCollision } from './battle-zones.js';
 
 // Main game loop to update game state
 function gameLoop() {
-  console.log(player);
   // Check for movement key presses and moves the player
   checkMovement({ character: player, boundaries: collisions });
 
