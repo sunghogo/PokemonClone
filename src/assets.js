@@ -61,5 +61,13 @@ async function initAssets() {
   console.log(`Loading assets finished`);
 }
 
+// Promisfying callback .find() method to find image from assets object in other modules to be synchronous with rest of AJAX initialization
+function findImage(src) {
+  return new Promise((resolve, reject) => {
+    const image = assets.images.objects.find(el => el.src?.includes(src));
+    image ? resolve(parseImageName(image)) : reject(image);
+  });
+}
+
 // Export assets object containing loaded asset objects
-export { initAssets, assets };
+export { initAssets, findImage, assets };
