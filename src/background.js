@@ -1,7 +1,7 @@
 // This module contains all the logic regarding the background
 
-import { findImage } from './assets.js';
 import Sprite from './sprite.js';
+import { findImage } from './assets.js';
 import { canvas } from './canvas.js';
 import { spawn } from './spawn.js';
 
