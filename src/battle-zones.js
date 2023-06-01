@@ -3,7 +3,7 @@
 import Boundary from './boundary.js';
 import { battleMap } from './data.js';
 import { background } from './background.js';
-import { detectCollision } from './collisions.js';
+import { detectCollision, rectangularCollisionOverlap } from './collisions.js';
 
 // Declare spawm array containing all the spawn boundary objects
 const battleZones = [];
@@ -32,13 +32,19 @@ function detectBattleZoneCollision({
   boundaries: battleZones,
   character: player,
 }) {
+  const boundary = detectCollision({
+    boundaries: battleZones,
+    character: player,
+  });
   if (
-    detectCollision({
-      boundaries: battleZones,
-      character: player,
-    })
+    boundary &&
+    rectangularCollisionOverlap({
+      rectangle1: player,
+      rectangle2: boundary,
+    }) >
+      (player.width * player.height) / 3
   )
-    return true;
+    return Math.random() < 0.03 ? true : false;
   return false;
 }
 
