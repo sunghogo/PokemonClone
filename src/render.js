@@ -6,8 +6,8 @@ import { foreground } from './foreground.js';
 
 function renderAllObjects() {
   background.draw();
-  collisions.forEach(boundary => boundary.draw(true));
-  battleZones.forEach(boundary => boundary.draw(true));
+  collisions.forEach(boundary => boundary.draw());
+  battleZones.forEach(boundary => boundary.draw());
   player.draw();
   foreground.draw();
 }
