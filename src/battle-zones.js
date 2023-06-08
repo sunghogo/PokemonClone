@@ -2,6 +2,7 @@
 
 import Boundary from './classes/boundary.js';
 import { battleMap } from './data-handling/data.js';
+import { player } from './player.js';
 import { background } from './background.js';
 import { detectCollision, rectangularCollisionOverlap } from './collisions.js';
 
@@ -28,10 +29,7 @@ function initBattleZones() {
 }
 
 // Detects if player is currently inside a battle zone
-function detectBattleZoneCollision({
-  boundaries: battleZones,
-  character: player,
-}) {
+function detectBattleZoneCollision() {
   const boundary = detectCollision({
     boundaries: battleZones,
     character: player,

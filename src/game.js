@@ -17,9 +17,7 @@ function gameLoop() {
   // Redraw images
   renderAllObjects();
 
-  detectBattleZoneCollision({ character: player, boundaries: battleZones })
-    ? console.log('battle')
-    : '';
+  detectBattleZoneCollision() ? console.log('battle') : '';
 
   // Next frame
   requestAnimationFrame(gameLoop);
