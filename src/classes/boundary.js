@@ -1,6 +1,6 @@
 // This module contains the Boundary class that will be used to initialize and render all objects other than the player and bg
 
-import { context } from './canvas.js';
+import { context } from '../canvas.js';
 
 class Boundary {
   // Dimensions of the tiles scaled to the enlarged tilemap

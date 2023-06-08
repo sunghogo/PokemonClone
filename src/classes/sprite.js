@@ -1,6 +1,6 @@
 // This module contains the Sprite class that will be used to initialize all images into Sprite objects that can be located and rendered
 
-import { context } from './canvas.js';
+import { context } from '../canvas.js';
 
 class Sprite {
   constructor({ position, velocity = 0, image, frames = { max: 1 }, sprites }) {
@@ -32,7 +32,7 @@ class Sprite {
       this.image.height
     );
 
-    // Reset animation is not moving
+    // Reset animation if not moving
     if (!this.moving) {
       this.frames.val = 0;
       this.frames.elapsed = 0;

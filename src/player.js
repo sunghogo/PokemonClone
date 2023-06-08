@@ -1,6 +1,6 @@
 // This module contains all the logic regarding the player character
 
-import Sprite from './sprite.js';
+import Sprite from './classes/sprite.js';
 import { findAllImages } from './assets.js';
 import { canvas } from './canvas.js';
 

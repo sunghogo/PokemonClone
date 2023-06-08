@@ -1,6 +1,6 @@
 // This modules initializes collision boundary objects
 
-import Boundary from './boundary.js';
+import Boundary from './classes/boundary.js';
 import { collisionsMap } from './data.js';
 import { background } from './background.js';
 
