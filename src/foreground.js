@@ -1,7 +1,7 @@
 // This module contains all the logic regarding the foreground
 
 import Sprite from './classes/sprite.js';
-import { findImage } from './assets.js';
+import { findImage } from './data-handling/assets.js';
 import { background } from './background.js';
 
 // Declare foreground sprite object
