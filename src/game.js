@@ -2,7 +2,6 @@
 
 import init from './init.js';
 import movePlayer from './movement.js';
-import { detectBattleZoneCollision } from './battle-zones.js';
 import renderAllObjects from './render.js';
 
 // Main game loop to update game state
@@ -12,9 +11,6 @@ function gameLoop() {
 
   // Redraw images
   renderAllObjects();
-
-  // Detects battle zone collision
-  detectBattleZoneCollision() ? console.log('battle') : '';
 
   // Next frame
   requestAnimationFrame(gameLoop);

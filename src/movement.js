@@ -4,6 +4,7 @@ import { keys } from './keys.js';
 import { player } from './player.js';
 import { moveMovables } from './movable-objects.js';
 import { detectPlayerCollision } from './collisions.js';
+import { detectPlayerBattleZoneCollision } from './battle-zones.js';
 
 // Calculates position offset due to player movement in advance
 function calculateMovementOffset(key) {
@@ -23,6 +24,7 @@ function movePlayer() {
       player.image = player.sprites[key];
       const offset = calculateMovementOffset(key);
       if (!detectPlayerCollision(offset)) moveMovables(offset);
+      detectPlayerBattleZoneCollision() ? console.log('battle') : '';
     }
   });
 }

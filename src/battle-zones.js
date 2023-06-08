@@ -29,7 +29,7 @@ function initBattleZones() {
 }
 
 // Detects if player is currently inside a battle zone
-function detectBattleZoneCollision() {
+function detectPlayerBattleZoneCollision() {
   const boundary = detectCollision({
     boundaries: battleZones,
     character: player,
@@ -46,4 +46,4 @@ function detectBattleZoneCollision() {
   return false;
 }
 
-export { battleZones, initBattleZones, detectBattleZoneCollision };
+export { battleZones, initBattleZones, detectPlayerBattleZoneCollision };
