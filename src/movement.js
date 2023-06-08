@@ -2,8 +2,7 @@
 
 import { keys } from './keys.js';
 import { player } from './player.js';
-import { collisions } from './collisions.js';
-import { movables, moveMovables } from './movable-objects.js';
+import { moveMovables } from './movable-objects.js';
 import { detectPlayerCollision } from './collisions.js';
 
 function calculateMovementOffset(key) {
@@ -14,7 +13,7 @@ function calculateMovementOffset(key) {
   return { offsetX, offsetY };
 }
 
-function calculatePlayerMovement() {
+function movePlayer() {
   player.moving = false;
   keys.forEach((value, key) => {
     if (value) {
@@ -26,4 +25,4 @@ function calculatePlayerMovement() {
   });
 }
 
-export default calculatePlayerMovement;
+export default movePlayer;

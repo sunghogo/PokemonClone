@@ -1,18 +1,14 @@
 // This is the main game logic module
 
 import init from './init.js';
-import { player } from './player.js';
-import { background } from './background.js';
-import { collisions } from './collisions.js';
-import calculatePlayerMovement from './movement.js';
-import { foreground } from './foreground.js';
-import { battleZones, detectBattleZoneCollision } from './battle-zones.js';
+import movePlayer from './movement.js';
+import { detectBattleZoneCollision } from './battle-zones.js';
 import renderAllObjects from './render.js';
 
 // Main game loop to update game state
 function gameLoop() {
   // Detects and calculates player movement
-  calculatePlayerMovement();
+  movePlayer();
 
   // Redraw images
   renderAllObjects();
