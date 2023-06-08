@@ -14,6 +14,7 @@ function gameLoop() {
   // Check for movement key presses and moves the player
   checkMovement({ character: player, boundaries: collisions });
 
+  // Redraw images
   renderAllObjects();
 
   detectBattleZoneCollision({ character: player, boundaries: battleZones })

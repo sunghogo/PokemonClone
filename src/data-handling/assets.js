@@ -1,7 +1,7 @@
 // This module fetches, loads, stores, and returns asset files
 
 // Import modules
-import { parseAssetType, parseImageName } from '../parse.js';
+import { parseAssetType, parseImageName } from '../util/parse.js';
 import { srcsFilePath, fetchSrc } from './fetch.js';
 
 // Declare loaded assets object with asset srcs and objects
