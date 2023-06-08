@@ -1,7 +1,7 @@
 // This modules initializes the spawn boundary objects
 
 import Boundary from './classes/boundary.js';
-import { spawnMap } from './data.js';
+import { spawnMap } from './data-handling/data.js';
 
 // Declare spawm array containing all the spawn boundary objects
 const spawn = { spawns: [], position: { x: 0, y: 0 } };

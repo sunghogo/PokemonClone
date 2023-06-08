@@ -2,7 +2,7 @@
 
 // Import modules
 import { parseAssetType, parseImageName } from './parse.js';
-import { srcsFilePath, fetchSrc } from './fetch.js';
+import { srcsFilePath, fetchSrc } from './data-handling/fetch.js';
 
 // Declare loaded assets object with asset srcs and objects
 const assets = {

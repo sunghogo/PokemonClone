@@ -1,7 +1,7 @@
 // This module initializes all the other modules for the first time
 
 import { initAssets } from './assets.js';
-import { initData } from './data.js';
+import { initData } from './data-handling/data.js';
 import { initKeys } from './keys.js';
 import { initCanvas } from './canvas.js';
 import { initPlayer } from './player.js';

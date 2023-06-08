@@ -1,7 +1,7 @@
 // This modules initializes the battle zone boundary objects
 
 import Boundary from './classes/boundary.js';
-import { battleMap } from './data.js';
+import { battleMap } from './data-handling/data.js';
 import { background } from './background.js';
 import { detectCollision, rectangularCollisionOverlap } from './collisions.js';
 
