@@ -1,6 +1,5 @@
 // This modules contains all the boundary objects and sprites that are rendered and moved
 
-import { spawn } from './spawn.js';
 import { background } from './background.js';
 import { foreground } from './foreground.js';
 import { collisions } from './collisions.js';
@@ -14,4 +13,11 @@ function initMovables() {
   movables.push(background, foreground, ...collisions, ...battleZones);
 }
 
-export { movables, initMovables };
+function moveMovables({ offsetX = 0, offsetY = 0 }) {
+  movables.forEach(movable => {
+    movable.position.x += offsetX;
+    movable.position.y += offsetY;
+  });
+}
+
+export { movables, initMovables, moveMovables };
