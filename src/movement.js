@@ -3,48 +3,25 @@
 import { keys } from './keys.js';
 import { player } from './player.js';
 import { collisions } from './collisions.js';
-import { movables } from './movable-objects.js';
+import { movables, moveMovables } from './movable-objects.js';
 import { detectPlayerCollision } from './collisions.js';
+
+function calculateMovementOffset(key) {
+  const offsetX =
+    key === 'left' ? player.velocity : key === 'right' ? -player.velocity : 0;
+  const offsetY =
+    key === 'up' ? player.velocity : key === 'down' ? -player.velocity : 0;
+  return { offsetX, offsetY };
+}
 
 function calculatePlayerMovement() {
   player.moving = false;
   keys.forEach((value, key) => {
-    if (value && key === 'up') {
+    if (value) {
       player.moving = true;
-      player.image = player.sprites.up;
-      if (!detectPlayerCollision({ offsetY: player.velocity }))
-        movables.forEach(movable => {
-          movable.position.y += player.velocity;
-        });
-    } else if (value && key === 'down') {
-      player.moving = true;
-      player.image = player.sprites.down;
-      if (
-        !detectPlayerCollision({
-          offsetY: -player.velocity,
-        })
-      )
-        movables.forEach(movable => {
-          movable.position.y -= player.velocity;
-        });
-    } else if (value && key === 'left') {
-      player.moving = true;
-      player.image = player.sprites.left;
-      if (!detectPlayerCollision({ offsetX: player.velocity }))
-        movables.forEach(movable => {
-          movable.position.x += player.velocity;
-        });
-    } else if (value && key === 'right') {
-      player.moving = true;
-      player.image = player.sprites.right;
-      if (
-        !detectPlayerCollision({
-          offsetX: -player.velocity,
-        })
-      )
-        movables.forEach(movable => {
-          movable.position.x -= player.velocity;
-        });
+      player.image = player.sprites[key];
+      const offset = calculateMovementOffset(key);
+      if (!detectPlayerCollision(offset)) moveMovables(offset);
     }
   });
 }
