@@ -27,6 +27,7 @@ async function init() {
   initMovables();
   initResize();
   initKeys();
+  console.clear();
   console.log(`Initialization Complete!`);
 }
 
