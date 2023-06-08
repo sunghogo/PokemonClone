@@ -5,7 +5,7 @@ import { battleMap } from './data-handling/data.js';
 import { player } from './player.js';
 import { background } from './background.js';
 import { detectCollision, rectangularCollisionOverlap } from './collisions.js';
-import battle from './battle.js';
+import { battle } from './battle.js';
 
 // Declare spawm array containing all the spawn boundary objects
 const battleZones = [];
