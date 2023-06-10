@@ -16,7 +16,7 @@ function battleAnimation() {
         opacity: 1,
         duration: 0.4,
         onComplete() {
-          overlay.classList.toggle('hidden');
+          // overlay.classList.toggle('hidden');
         },
       });
     },
