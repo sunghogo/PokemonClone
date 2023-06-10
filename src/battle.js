@@ -21,6 +21,8 @@ function battleAnimation() {
       });
     },
   });
+
+  // #FIXME Code after this point will not synchronously run
 }
 
 function startBattleSequence() {
