@@ -9,3 +9,6 @@ Run generate-srcs.js using node from the root directory to generate src paths fo
 ------Controls------
 
 W/A/S/D or UP/LEFT/DOWN/RIGHT to move
+
+* Credit to Chris Courses for the assets and some of the game logic:
+https://www.youtube.com/watch?v=yP5DKzriqXA&ab_channel=ChrisCourses *
